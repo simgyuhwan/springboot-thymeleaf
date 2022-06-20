@@ -21,8 +21,11 @@ public class Posts extends BaseEntity {
     @Lob
     private String content;
 
-    public Posts(String title, String content) {
+    private String writer;
+
+    public Posts(String title, String content, String writer) {
         this.title = title;
         this.content = content;
+        this.writer = writer;
     }
 }

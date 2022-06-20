@@ -65,7 +65,7 @@ class PostRepositoryTest {
     @Test
     @DisplayName("제목 조회 Like 테스트")
     void findByTitleInPosts(){
-        Posts savePosts = repository.save(new Posts("test1", "content"));
+        Posts savePosts = repository.save(new Posts("test1", "content", "writer"));
         clear();
         List<Posts> posts = repository.findByTitleContaining("tes");
         assertThat(savePosts.getTitle())
@@ -73,7 +73,7 @@ class PostRepositoryTest {
     }
 
     private Posts createPost() {
-        return new Posts("test", "content test");
+        return new Posts("test", "content test", "writer");
     }
 
     public void clear(){
