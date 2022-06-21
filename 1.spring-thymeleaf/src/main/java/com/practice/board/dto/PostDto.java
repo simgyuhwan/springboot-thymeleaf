@@ -1,5 +1,6 @@
 package com.practice.board.dto;
 
+import com.practice.board.entity.Posts;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,14 +16,15 @@ import javax.validation.constraints.NotBlank;
 public class PostDto {
     private Long id;
 
-    @Max(value = 20 , message = "최대 20자까지 가능합니다.")
-    @NotBlank
+    //@Max(value = 20 , message = "최대 20자까지 가능합니다.")
+    @NotBlank(message = "값을 입력해주세요")
     private String title;
 
-    @NotBlank
+    @NotBlank(message = "값을 입력해주세요")
     private String content;
 
-    @NotBlank
-    @Max(value = 10, message = "최대 10자까지 가능합니다.")
+    @NotBlank(message = "값을 입력해주세요")
+    //@Max(value = 10, message = "최대 10자까지 가능합니다.")
     private String writer;
+
 }

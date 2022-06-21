@@ -1,9 +1,6 @@
 package com.practice.board.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -23,6 +20,7 @@ public class Posts extends BaseEntity {
 
     private String writer;
 
+    @Builder
     public Posts(String title, String content, String writer) {
         this.title = title;
         this.content = content;

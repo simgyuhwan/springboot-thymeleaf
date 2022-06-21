@@ -13,7 +13,7 @@
 <th:block layout:fragment="content" class="content">
     <h2>글쓰기</h2>
 
-    <form th:action="@{/board/write}" method="post" th:object="${PostDto}">
+    <form th:action="@{/board/add}" method="post" th:object="${PostDto}">
         <div>
             제목   <input type="text" th:field="*{title}" placeholder="제목">
         </div>

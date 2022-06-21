@@ -1,6 +1,8 @@
 package com.practice.board.controller;
 
 import com.practice.board.dto.PostDto;
+import com.practice.board.entity.Posts;
+import com.practice.board.mapper.PostMapper;
 import com.practice.board.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -32,7 +34,9 @@ public class PostController {
 
     @PostMapping("/add")
     public String write(Model model, @Validated PostDto postDto){
-        return null;
+        Posts posts = service.addPosts(PostMapper.MAPPER.toEntity(postDto));
+        model.addAttribute("PostDto",PostMapper.MAPPER.toDto(posts));
+        return "board/write";
     }
 
 }
