@@ -14,15 +14,13 @@
     <th:block layout:fragment="content" class="content">
         <h1>게시판</h1>
         <table  bordercolor="green"  height="200">
-            <th>No</th>
             <th>title</th>
-            <th >writer</th>
+            <th>writer</th>
             <th>created</th>
-            <tr>
-                <td>1</td>
-                <td>첫 번째</td>
-                <td th:text="${writer}">작성자</td>
-                <td>2022-6-30</td>
+            <tr th:each="postDto : ${postDtoList}" th:object="${postDto}">
+                <td th:text="*{title}">첫 번째</td>
+                <td th:text="*{writer}">작성자</td>
+                <td th:text="*{createdDate}"></td>
             </tr>
         </table>
         <button class="favorite styled" type="button" th:onclick="'location.href=' + '\'' + @{/board/post} + '\''" >글쓰기</button>

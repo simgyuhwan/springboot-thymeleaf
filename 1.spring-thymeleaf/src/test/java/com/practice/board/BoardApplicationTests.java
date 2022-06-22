@@ -8,6 +8,11 @@ class BoardApplicationTests {
 
 	@Test
 	void contextLoads() {
+		//given
+
+		//when
+
+		//then
 	}
 
 }

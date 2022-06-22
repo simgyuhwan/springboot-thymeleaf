@@ -6,4 +6,5 @@ public class PostFactory {
     public static Posts createPosts(){
         return new Posts("test1", "content", "writer");
     }
+
 }

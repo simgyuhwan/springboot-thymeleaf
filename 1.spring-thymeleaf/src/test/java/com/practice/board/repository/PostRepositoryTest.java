@@ -1,12 +1,15 @@
 package com.practice.board.repository;
 
+import com.practice.board.dto.PostDto;
 import com.practice.board.entity.Posts;
+import com.practice.board.mapper.PostMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.domain.Sort;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
@@ -16,7 +19,9 @@ import javax.persistence.PersistenceContext;
 import java.text.DateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -72,9 +77,12 @@ class PostRepositoryTest {
                 .isEqualTo(posts.get(0).getTitle());
     }
 
+
     private Posts createPost() {
         return new Posts("test", "content test", "writer");
     }
+
+
 
     public void clear(){
         em.flush();

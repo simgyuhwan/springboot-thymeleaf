@@ -12,6 +12,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
@@ -37,6 +41,20 @@ class PostServiceTest {
 
         // then
         verify(repository).save(any(Posts.class));
+    }
+
+
+
+    public List<Posts> createPostList(){
+        List<Posts> posts = new ArrayList<>();
+        for(int i=0; i<3; i++){
+            posts.add(
+                    new Posts(
+                            null, "title", "content", "writer", LocalDateTime.now(), LocalDateTime.now()
+                    )
+            );
+        }
+        return posts;
     }
 
     public Posts createPosts(){

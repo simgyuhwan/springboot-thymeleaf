@@ -3,6 +3,7 @@ package com.practice.board.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -27,4 +28,15 @@ public class Posts extends BaseEntity {
         this.content = content;
         this.writer = writer;
     }
+
+    public Posts(Long id ,String title, String content, String writer, LocalDateTime createdDate, LocalDateTime updatedDate){
+        this.id = id;
+        this.title = title;
+        this.content = content;
+        this.writer = writer;
+        this.createdDate = createdDate;
+        this.updateDate = updatedDate;
+    }
+
+
 }

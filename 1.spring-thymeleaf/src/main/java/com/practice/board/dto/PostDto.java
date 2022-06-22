@@ -10,6 +10,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -27,6 +28,11 @@ public class PostDto {
     @NotBlank(message = "값을 입력해주세요")
     @Size(min = 1, max = 20)
     private String writer;
+
+    private LocalDateTime createdDate;
+
+    private LocalDateTime updateDate;
+
 
     public PostDto(String title, String content, String writer) {
         this.title = title;

@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/board")
 @RequiredArgsConstructor
@@ -21,8 +23,8 @@ public class PostController {
 
     @GetMapping
     public String list(Model model){
-        String writer = new String("test");
-        model.addAttribute("writer",writer);
+        List<PostDto> postDtoList = service.getPosts();
+        model.addAttribute("postDtoList", postDtoList);
         return "board/board";
     }
 
@@ -35,6 +37,7 @@ public class PostController {
     @PostMapping("/post")
     public String write(Model model, @Validated PostDto postDto){
         Posts posts = service.addPosts(postDto);
+
         model.addAttribute("PostDto",PostMapper.MAPPER.toDto(posts));
         return "board/detail";
     }
