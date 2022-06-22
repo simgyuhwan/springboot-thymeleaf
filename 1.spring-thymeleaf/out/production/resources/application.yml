@@ -1,16 +1,19 @@
 spring:
   datasource:
-    url: jdbc:h2:~/test
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
+    #url: jdbc:h2:~/test
+    #driver-class-name: org.h2.Driver
+    url: jdbc:mysql://localhost:3306/thymeleaf?serverTimezone=Asia/Seoul
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: Password!
   jpa:
     hibernate:
       ddl-auto: update
     generate-ddl: true
     show-sql: true
-    database: h2
-    database-platform: org.hibernate.dialect.H2Dialect
+    database: mysql
+   #database-platform: org.hibernate.dialect.H2Dialect
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
   devtools:
     livereload:
       enabled: true
@@ -20,9 +23,18 @@ spring:
     prefix: classpath:/templates/
     suffix: .html
     cache: false
-    # ????? ??? ??? ??? ??
     check-template-location: true
 
 server:
-  port: 8888
+  port: 8081
 
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE

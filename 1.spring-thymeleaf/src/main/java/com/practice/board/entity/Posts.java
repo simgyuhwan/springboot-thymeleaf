@@ -7,6 +7,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Posts extends BaseEntity {
 
     @Id @Column(name = "post_id")

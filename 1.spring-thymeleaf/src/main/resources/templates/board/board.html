@@ -10,13 +10,13 @@
 </th:block>
 
 <body>
-    <th:block layout:frament="header" th:include="@{/fragments/header}"></th:block>
+    <th:block layout:fragment="header" th:include="@{/fragments/header}"></th:block>
     <th:block layout:fragment="content" class="content">
         <h1>게시판</h1>
-        <table border="1" bordercolor="green" width="300" height="200">
+        <table  bordercolor="green"  height="200">
             <th>No</th>
             <th>title</th>
-            <th >writer</th>
+            <th>writer</th>
             <th>created</th>
             <tr>
                 <td>1</td>
@@ -25,7 +25,7 @@
                 <td>2022-6-30</td>
             </tr>
         </table>
-        <button class="favorite styled" type="button" th:onclick="'location.href=' + '\'' + @{/board/add} + '\''" >글쓰기</button>
+        <button class="favorite styled" type="button" th:onclick="'location.href=' + '\'' + @{/board/post} + '\''" >글쓰기</button>
     </th:block>
 
     <th:block layout:fragment="footer" th:include="@{/fragments/footer}"></th:block>

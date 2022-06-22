@@ -26,17 +26,17 @@ public class PostController {
         return "board/board";
     }
 
-    @GetMapping("/add")
+    @GetMapping("/post")
     public String write(Model model){
         model.addAttribute("PostDto",new PostDto());
         return "board/write";
     }
 
-    @PostMapping("/add")
+    @PostMapping("/post")
     public String write(Model model, @Validated PostDto postDto){
-        Posts posts = service.addPosts(PostMapper.MAPPER.toEntity(postDto));
+        Posts posts = service.addPosts(postDto);
         model.addAttribute("PostDto",PostMapper.MAPPER.toDto(posts));
-        return "board/write";
+        return "board/detail";
     }
 
 }

@@ -15,3 +15,11 @@ body, html{
     background-color: Beige;
     height: 10%;
 }
+
+table, th, td{
+    border: 1px solid black;
+    border-collapse: collapse;
+    align-content: center;
+    width: 200px;
+}
+

@@ -9,6 +9,7 @@ import javax.persistence.Lob;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Data
 @NoArgsConstructor
@@ -16,7 +17,7 @@ import javax.validation.constraints.NotBlank;
 public class PostDto {
     private Long id;
 
-    //@Max(value = 20 , message = "최대 20자까지 가능합니다.")
+    @Size(min = 1, max = 20)
     @NotBlank(message = "값을 입력해주세요")
     private String title;
 
@@ -24,7 +25,12 @@ public class PostDto {
     private String content;
 
     @NotBlank(message = "값을 입력해주세요")
-    //@Max(value = 10, message = "최대 10자까지 가능합니다.")
+    @Size(min = 1, max = 20)
     private String writer;
 
+    public PostDto(String title, String content, String writer) {
+        this.title = title;
+        this.content = content;
+        this.writer = writer;
+    }
 }
