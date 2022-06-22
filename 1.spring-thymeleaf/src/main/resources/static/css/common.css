@@ -16,10 +16,11 @@ body, html{
     height: 10%;
 }
 
-table, th, td{
+table, th, td,tr{
     border: 1px solid black;
     border-collapse: collapse;
     align-content: center;
-    width: 200px;
+    width: 450px;
+    height: auto;
 }
 

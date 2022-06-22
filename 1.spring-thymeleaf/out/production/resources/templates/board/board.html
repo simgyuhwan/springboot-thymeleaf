@@ -17,7 +17,9 @@
             <th>title</th>
             <th>writer</th>
             <th>created</th>
-            <tr th:each="postDto : ${postDtoList}" th:object="${postDto}">
+            <th>regTime</th>
+            <tr th:each="postDto,status : ${postDtoList}" th:object="${postDto}">
+                <td th:text="${status.count}">1</td>
                 <td th:text="*{title}">첫 번째</td>
                 <td th:text="*{writer}">작성자</td>
                 <td th:text="*{createdDate}"></td>

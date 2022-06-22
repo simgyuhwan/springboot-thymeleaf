@@ -49,9 +49,11 @@ class PostServiceTest {
         List<Posts> posts = new ArrayList<>();
         for(int i=0; i<3; i++){
             posts.add(
-                    new Posts(
-                            null, "title", "content", "writer", LocalDateTime.now(), LocalDateTime.now()
-                    )
+                    Posts.builder()
+                            .title("title" + i)
+                            .content("content" + i)
+                            .writer("writer" + i)
+                            .build()
             );
         }
         return posts;

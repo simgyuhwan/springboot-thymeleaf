@@ -17,17 +17,17 @@
         <ul>
             <li>
                 <h3>제목:
-                <span th:text="${PostDto.title}">용용</span>
+                <span th:text="${PostDto.title}" th:value="${PostDto.id}">용용</span>
                 </h3>
             </li>
             <li>
                 <h3>작성자:
-                    <span th:text="${PostDto.writer}">용용</span>
+                    <span th:text="${PostDto.writer}" th:value="${PostDto.id}">용용</span>
                 </h3>
             </li>
             <li>
                 <h3>내용 :
-                <textarea th:text="${PostDto.content}">
+                <textarea th:text="${PostDto.content}" th:value="${PostDto.id}" readonly>
                     컨탠츠
                 </textarea>
                 </h3>

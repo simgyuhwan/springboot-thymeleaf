@@ -17,16 +17,14 @@ import java.util.Date;
 @MappedSuperclass
 @Getter
 @EntityListeners(AuditingEntityListener.class)
-@AllArgsConstructor
-@NoArgsConstructor
 public abstract class BaseEntity {
 
     @CreatedDate
     @Column(nullable = false,updatable = false)
-    protected LocalDateTime createdDate;
+    private LocalDateTime createdDate;
 
     @LastModifiedDate
     @Column(nullable = false)
-    protected LocalDateTime updateDate;
+    private LocalDateTime updateDate;
 
 }

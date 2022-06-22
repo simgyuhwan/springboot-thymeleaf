@@ -38,7 +38,7 @@ public class PostController {
     public String write(Model model, @Validated PostDto postDto){
         Posts posts = service.addPosts(postDto);
 
-        model.addAttribute("PostDto",PostMapper.MAPPER.toDto(posts));
+        model.addAttribute("PostDto", PostDto.of(posts));
         return "board/detail";
     }
 

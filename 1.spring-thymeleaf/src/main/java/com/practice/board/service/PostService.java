@@ -22,8 +22,7 @@ public class PostService {
     }
 
     public Posts addPosts(PostDto postDto) {
-        Posts posts = PostMapper.MAPPER.toEntity(postDto);
-        System.out.println(posts);
+        Posts posts = Posts.of(postDto);
         return repository.save(posts);
     }
 
@@ -31,7 +30,7 @@ public class PostService {
            return repository.findAll(Sort.by
                 (Sort.Direction.DESC, "createdDate"))
                 .stream()
-                .map(n -> PostMapper.MAPPER.toDto(n))
+                .map(n -> PostDto.of(n))
                 .collect(Collectors.toList());
     }
 }

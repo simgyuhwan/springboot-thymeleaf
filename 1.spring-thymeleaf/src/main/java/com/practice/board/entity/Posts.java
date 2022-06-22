@@ -1,5 +1,6 @@
 package com.practice.board.entity;
 
+import com.practice.board.dto.PostDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -8,7 +9,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class Posts extends BaseEntity {
 
     @Id @Column(name = "post_id")
@@ -29,14 +30,13 @@ public class Posts extends BaseEntity {
         this.writer = writer;
     }
 
-    public Posts(Long id ,String title, String content, String writer, LocalDateTime createdDate, LocalDateTime updatedDate){
-        this.id = id;
-        this.title = title;
-        this.content = content;
-        this.writer = writer;
-        this.createdDate = createdDate;
-        this.updateDate = updatedDate;
+    public static Posts of(PostDto postDto){
+        return Posts
+                .builder()
+                .content(postDto.getContent())
+                .title(postDto.getTitle())
+                .writer(postDto.getWriter())
+                .build();
     }
-
 
 }

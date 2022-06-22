@@ -25,8 +25,8 @@
         </div>
         <button type="submit">등록</button>
         <button type="reset">리셋</button>
+        <button type="button" th:onclick="'location.href=\''+ @{/board}+'\''">취소</button>
     </form>
-
 </th:block>
 
 <th:block layout:fragment="footer" th:include="@{/fragments/footer}"></th:block>
