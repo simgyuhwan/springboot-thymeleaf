@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default_layout}">
+
+<th:block layout:fragment="head">
+    <title>Board</title>
+    <link th:href="@{/css/common.css}" rel="stylesheet"/>
+</th:block>
+<body>
+<th:block layout:fragment="header" th:include="@{/fragments/header}"></th:block>
+<th:block layout:fragment="content" class="content">
+    <h2>글쓰기</h2>
+
+    <form th:action="@{/board/post}" method="post" th:object="${PostDto}">
+        <div>
+            제목   <input type="text" th:field="*{title}" placeholder="제목">
+        </div>
+        <div>
+            작성자  <input type="text" th:field="*{writer}" placeholder="작성자">
+        </div>
+        <div>
+            내용   <textarea type="text" th:field="*{content}" placeholder="내용"></textarea>
+        </div>
+        <button type="submit">등록</button>
+        <button type="reset">리셋</button>
+        <button type="button" th:onclick="'location.href=\''+ @{/board}+'\''">취소</button>
+    </form>
+</th:block>
+
+<th:block layout:fragment="footer" th:include="@{/fragments/footer}"></th:block>
+
+</body>
+</html>
+

@@ -13,28 +13,29 @@
     <th:block layout:fragment="header" th:include="@{/fragments/header}"></th:block>
     <th:block layout:fragment="content" class="content">
 
-    <section>
-        <ul>
-            <li>
-                <h3>제목:
-                <span th:text="${PostDto.title}" th:value="${PostDto.id}">용용</span>
-                </h3>
-            </li>
-            <li>
-                <h3>작성자:
-                    <span th:text="${PostDto.writer}" th:value="${PostDto.id}">용용</span>
-                </h3>
-            </li>
-            <li>
-                <h3>내용 :
-                <textarea th:text="${PostDto.content}" th:value="${PostDto.id}" readonly>
-                    컨탠츠
-                </textarea>
-                </h3>
-            </li>
-        </ul>
-    </section>
-
+        <table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
+            <thead>
+                <tr>
+                    <th colspan="2" style="background-color: #eeeeee; text-align: center;">게시판 글 보기</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td style="width: 20%;">글 제목</td>
+                <td th:text="${PostDto.title}" th:value="${PostDto.title}">제목 위치</td>
+            </tr>
+            <tr>
+                <td>작성자</td>
+                <td th:text="${PostDto.writer}" th:value="${PostDto.writer}">작성자 위치</td>
+            </tr>
+            <tr>
+                <td>내용</td>
+                <td colspan="2" style="height: 200px; text-align: left;"  th:text="${PostDto.content}" th:value="${PostDto.content}" readonly></td>
+            </tr>
+            </tbody>
+        </table>
+        <a th:href="@{/board}" class="btn">목록</a>
+        <a th:href="@{'/board/' +${PostDto.id}}" class="btn">수정</a>
     </th:block>
     <th:block layout:fragment="footer" th:include="@{/fragments/footer}"></th:block>
 

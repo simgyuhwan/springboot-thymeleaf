@@ -1,19 +1,50 @@
 body, html{
     height: 100%;
+    align-content: center;
+    padding-top: 75px;
+    margin: 0;
 }
 
 .header{
-    background-color: Beige;
-    height: 10%
+    background-color: darkslategrey;
+    height: 10%;
+    align-content: center;
+    color: antiquewhite;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-style: oblique;
+    font-family: auto, serif;
+    font-size: larger;
+    font-weight: bold;
+    font-variant: small-caps;
+}
+header.mainButton{
+    text-decoration: none;
 }
 
 .content{
     height: 80%;
+    min-height: 100vh;
+    position: relative;
+    width: 100%;
+    padding-bottom: 110px;
 }
 
 .footer{
-    background-color: Beige;
-    height: 10%;
+    background-color: whitesmoke;
+    height: 110px;
+    bottom: 0px;
+    position: absolute;
+    width: 100%;
+    background-color: darkslategrey;
+    text-align: right;
+    font-size: 14px;
 }
 
 table, th, td,tr{
@@ -24,3 +55,28 @@ table, th, td,tr{
     height: auto;
 }
 
+a.btn{
+    text-decoration: none;
+    font-size: 1rem;
+    color: black;
+    padding: 10px 20px 10px 20px;
+    margin: 20px;
+    display: inline-table;
+    border-radius: 10px;
+    transition: auto;
+    font-family: revert;
+    background-color: aquamarine;
+}
+
+button.btn{
+    text-decoration: none;
+    font-size: 12px;
+    color: black;
+    padding: 10px 20px 10px 20px;
+    margin: 20px;
+    display: inline-table;
+    border-radius: 10px;
+    transition: auto;
+    font-family: revert;
+    background-color: aliceblue;
+}

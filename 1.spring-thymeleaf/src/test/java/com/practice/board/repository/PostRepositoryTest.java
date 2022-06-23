@@ -2,7 +2,6 @@ package com.practice.board.repository;
 
 import com.practice.board.dto.PostDto;
 import com.practice.board.entity.Posts;
-import com.practice.board.mapper.PostMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

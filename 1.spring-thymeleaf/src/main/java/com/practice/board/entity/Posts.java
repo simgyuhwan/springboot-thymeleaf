@@ -39,4 +39,10 @@ public class Posts extends BaseEntity {
                 .build();
     }
 
+    public Posts update(PostDto postDto) {
+        this.title = postDto.getTitle();
+        this.content = postDto.getContent();
+        this.writer = postDto.getWriter();
+        return this;
+    }
 }

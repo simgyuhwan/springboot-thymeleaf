@@ -54,6 +54,7 @@ public class PostDto {
     public static PostDto of(Posts posts){
         return PostDto
                 .builder()
+                .id(posts.getId())
                 .content(posts.getContent())
                 .title(posts.getTitle())
                 .writer(posts.getWriter())

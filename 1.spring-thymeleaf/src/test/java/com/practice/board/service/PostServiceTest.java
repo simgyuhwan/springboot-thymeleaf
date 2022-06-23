@@ -43,8 +43,6 @@ class PostServiceTest {
         verify(repository).save(any(Posts.class));
     }
 
-
-
     public List<Posts> createPostList(){
         List<Posts> posts = new ArrayList<>();
         for(int i=0; i<3; i++){

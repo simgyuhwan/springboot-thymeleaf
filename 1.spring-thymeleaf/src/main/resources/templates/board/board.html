@@ -25,7 +25,7 @@
                 <td th:text="*{createdDate}"></td>
             </tr>
         </table>
-        <button class="favorite styled" type="button" th:onclick="'location.href=' + '\'' + @{/board/post} + '\''" >글쓰기</button>
+        <button class="btn" type="button" th:onclick="'location.href=' + '\'' + @{/board/post} + '\''" >글쓰기</button>
     </th:block>
 
     <th:block layout:fragment="footer" th:include="@{/fragments/footer}"></th:block>
