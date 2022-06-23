@@ -15,17 +15,22 @@
 
     <form th:action="@{/board/post}" method="post" th:object="${PostDto}">
         <div>
-            제목   <input type="text" th:field="*{title}" placeholder="제목">
+            제목
+            <input type="text" th:field="*{title}" size="80" id="title" placeholder="제목">
         </div>
         <div>
-            작성자  <input type="text" th:field="*{writer}" placeholder="작성자">
+            작성자
+            <input type="text" th:field="*{writer}" size="80" id="writer" placeholder="작성자">
         </div>
         <div>
-            내용   <textarea type="text" th:field="*{content}" placeholder="내용"></textarea>
+            내용
+            <textarea type="text" th:field="*{content}" rows="4" cols="80" id="content" placeholder="내용"></textarea>
         </div>
-        <button type="submit">등록</button>
-        <button type="reset">리셋</button>
-        <button type="button" th:onclick="'location.href=\''+ @{/board}+'\''">취소</button>
+        <div style="width:650px; text-align: center;">
+            <button type="submit">등록</button>
+            <button type="reset">리셋</button>
+            <button type="button" th:onclick="'location.href=\''+ @{/board}+'\''">취소</button>
+        </div>
     </form>
 </th:block>
 
