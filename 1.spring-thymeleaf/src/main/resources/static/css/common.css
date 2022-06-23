@@ -43,7 +43,7 @@ header.mainButton{
     position: absolute;
     width: 100%;
     background-color: darkslategrey;
-    text-align: right;
+    text-align: center;
     font-size: 14px;
 }
 
