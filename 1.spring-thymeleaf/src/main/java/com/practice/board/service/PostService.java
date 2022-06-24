@@ -4,6 +4,9 @@ import com.practice.board.dto.PostDto;
 import com.practice.board.entity.Posts;
 import com.practice.board.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +21,7 @@ import java.util.stream.Collectors;
 public class PostService {
 
     private final PostRepository repository;
+    private final PostDtoService postDtoService;
 
     public Long register(Posts posts) {
         return repository.save(posts).getId();
@@ -52,4 +56,22 @@ public class PostService {
     public void deletePost(Long postId) {
         repository.deleteById(postId);
     }
+
+    @Transactional(readOnly = true)
+    public Page<PostDto> findPage(Pageable pageable){
+        List<PostDto> postDtoList = postDtoService.getPostDtoList();
+        for (PostDto postDto : postDtoList) {
+            System.out.println("===========================================");
+            System.out.println("===========================================");
+            System.out.println(postDto.getTitle());
+            System.out.println(postDto.getContent());
+            System.out.println("===========================================");
+            System.out.println("===========================================");
+            System.out.println("===========================================");
+        }
+        return new PageImpl<>(postDtoList,
+                pageable,
+                postDtoList.size());
+    }
+
 }

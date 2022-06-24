@@ -4,12 +4,19 @@ import com.practice.board.dto.PostDto;
 import com.practice.board.entity.Posts;
 import com.practice.board.service.PostService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/board")
@@ -17,9 +24,11 @@ import java.util.List;
 public class PostController {
     private final PostService service;
 
-    @GetMapping
-    public String list(Model model){
-        model.addAttribute("postDtoList", service.getPosts());
+    @GetMapping(value = {"", "/{page}"})
+    public String list(Model model, @PathVariable("page") Optional<Integer> page ){
+        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 5);
+        model.addAttribute("posts", service.findPage(pageable));
+        model.addAttribute("maxPage", 5);
         return "board/board";
     }
 
@@ -55,9 +64,10 @@ public class PostController {
 
     @DeleteMapping("/post/detail/{postId}")
     public String delete(@PathVariable Long postId){
-        System.out.println("hello");
         service.deletePost(postId);
         return "redirect:/board";
     }
+
+
 
 }

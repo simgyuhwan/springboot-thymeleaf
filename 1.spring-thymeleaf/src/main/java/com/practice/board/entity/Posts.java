@@ -4,12 +4,27 @@ import com.practice.board.dto.PostDto;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor()
+@SqlResultSetMapping(
+        name = "PostDtoMapping",
+        classes = @ConstructorResult(
+                targetClass = PostDto.class,
+                columns = {
+                        @ColumnResult(name = "id", type = Long.class),
+                        @ColumnResult(name = "title", type = String.class),
+                        @ColumnResult(name = "content", type = String.class),
+                        @ColumnResult(name = "writer", type = String.class),
+                        @ColumnResult(name = "createdDate", type = LocalDate.class),
+                        @ColumnResult(name = "updateDate", type= LocalDate.class)
+                }
+        )
+)
 public class Posts extends BaseEntity {
 
     @Id @Column(name = "post_id")

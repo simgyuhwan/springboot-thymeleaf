@@ -27,8 +27,11 @@ dependencies {
 
 	// https://mvnrepository.com/artifact/mysql/mysql-connector-java
 	implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.27'
+	// https://mvnrepository.com/artifact/org.qlrm/qlrm
+	implementation group: 'org.qlrm', name: 'qlrm', version: '3.0.4'
 
 	compileOnly 'org.projectlombok:lombok'
+
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'mysql:mysql-connector-java'
 	annotationProcessor 'org.projectlombok:lombok'
