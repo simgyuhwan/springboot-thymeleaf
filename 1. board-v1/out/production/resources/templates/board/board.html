@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default_layout}">
+
+<th:block layout:frament="head">
+    <title>Board</title>
+    <link th:href="@{/css/common.css}" rel="stylesheet"/>
+</th:block>
+
+<body>
+    <th:block layout:fragment="header" th:include="@{/fragments/header}"></th:block>
+    <th:block layout:fragment="script">
+        <script th:inline="javascript">
+
+            function page(page){
+                location.href="/board/" + page;
+            }
+
+        </script>
+    </th:block>
+
+    <th:block layout:fragment="content" class="content">
+        <h1>게시판</h1>
+
+        <div style="margin-left: 20%;">
+            <button class="btn" type="button" th:onclick="'location.href=' + '\'' + @{/board/post} + '\''" >글쓰기</button>
+        </div>
+
+        <table  bordercolor="green"  height="200">
+            <th scope="col">No</th>
+            <th scope="col">title</th>
+            <th scope="col">writer</th>
+            <th scope="col">regTime</th>
+            <th>delete</th>
+            <tr th:each="postDto, status: ${posts.getContent()}" >
+                <td th:text="${status.count}">1</td>
+                <td>
+                    <a th:href="@{'/board/post/detail/' + ${postDto.id}}" style="text-decoration: none;">
+                        <span th:text="${postDto.title}">제목</span>
+                    </a>
+                </td>
+                <td th:text="${postDto.writer}" >작성자</td>
+                <td th:text="${postDto.createdDate}"></td>
+                <td>
+                    <form th:action="@{'/board/post/detail/'+ ${postDto.id}}" method="post">
+                        <input type="hidden" name="_method" value="delete"/>
+                        <button type="submit" class="delete-btn" >삭제</button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+        <div th:with="start=${(posts.number/maxPage)*maxPage + 1}, end=(${(posts.totalPages == 0) ? 1 : (start + (maxPage - 1) < posts.totalPages ? start + (maxPage - 1) : posts.totalPages)})" >
+                <ul>
+                    <li class="page-item" th:classappend="${posts.first}?'disabled'">
+                        <a th:onclick="'javascript:page(' + ${posts.number - 1} + ')'" aria-label='Previous' class="page-link">
+                            <span aria-hidden='true'>Previous</span>
+                        </a>
+                    </li>
+
+                    <li class="page-item" th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${posts.number eq page-1}?'active':''">
+                        <a th:onclick="'javascript:page(' + ${page - 1} + ')'" th:inline="text" class="page-link">[[${page}]]</a>
+                    </li>
+
+                    <li class="page-item" th:classappend="${posts.last}?'disabled'">
+                        <a th:onclick="'javascript:page(' + ${posts.number + 1} + ')'" aria-label='Next' class="page-link">
+                            <span aria-hidden='true'>Next</span>
+                        </a>
+                    </li>
+                </ul>
+        </div>
+    </th:block>
+
+
+</script>
+
+</body>
+</html>
