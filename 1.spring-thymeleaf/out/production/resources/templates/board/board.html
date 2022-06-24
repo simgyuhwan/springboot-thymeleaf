@@ -14,21 +14,33 @@
     <th:block layout:fragment="content" class="content">
         <h1>게시판</h1>
         <table  bordercolor="green"  height="200">
-            <th>title</th>
-            <th>writer</th>
-            <th>created</th>
-            <th>regTime</th>
+            <th scope="col">No</th>
+            <th scope="col">title</th>
+            <th scope="col">writer</th>
+            <th scope="col">regTime</th>
+            <th >delete</th>
             <tr th:each="postDto,status : ${postDtoList}" th:object="${postDto}">
                 <td th:text="${status.count}">1</td>
-                <td th:text="*{title}">첫 번째</td>
-                <td th:text="*{writer}">작성자</td>
+                <td>
+                    <a th:href="@{'/board/post/detail/' + ${postDto.id}}" style="text-decoration: none;">
+                        <span th:text="*{title}">제목</span>
+                    </a>
+                </td>
+                <td th:text="*{writer}" >작성자</td>
                 <td th:text="*{createdDate}"></td>
+                <td>
+                    <form th:action="@{'/board/post/detail/'+ ${postDto.id}}" method="post">
+                        <input type="hidden" name="_method" value="delete"/>
+                        <button type="submit" class="delete-btn" >삭제</button>
+                    </form>
+                </td>
             </tr>
         </table>
         <button class="btn" type="button" th:onclick="'location.href=' + '\'' + @{/board/post} + '\''" >글쓰기</button>
     </th:block>
 
-    <th:block layout:fragment="footer" th:include="@{/fragments/footer}"></th:block>
+
+</script>
 
 </body>
 </html>

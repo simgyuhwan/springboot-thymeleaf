@@ -35,16 +35,29 @@ public class PostController {
         return "board/detail";
     }
 
-    @GetMapping("/{postId}")
+    @GetMapping("/post/detail/{postId}")
+    public String read(@PathVariable Long postId, Model model){
+        model.addAttribute("PostDto", PostDto.of(service.getPost(postId)));
+        return "board/detail";
+    }
+
+    @GetMapping("/post/{postId}")
     public String update(@PathVariable Long postId, Model model){
         model.addAttribute("PostDto", PostDto.of(service.getPost(postId)));
         return "board/update";
     }
 
-    @PostMapping("/{postId}")
+    @PostMapping("/post/{postId}")
     public String update(@PathVariable Long postId, @Validated PostDto postDto, Model model){
         model.addAttribute("PostDto", PostDto.of(service.updatePost(postId, postDto)));
         return "board/detail";
+    }
+
+    @DeleteMapping("/post/detail/{postId}")
+    public String delete(@PathVariable Long postId){
+        System.out.println("hello");
+        service.deletePost(postId);
+        return "redirect:/board";
     }
 
 }

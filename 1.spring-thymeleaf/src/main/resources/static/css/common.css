@@ -80,3 +80,21 @@ button.btn{
     font-family: revert;
     background-color: aliceblue;
 }
+
+.delete-btn{
+    font-size: 12px;
+    font-family: auto;
+    width: 50px;
+    height: 26px;
+    border-width: 1px;
+    color: #3a8a9e;
+    border-color: #d6bcd6;
+    font-weight: bold;
+    border-radius: 15px;
+    box-shadow: 2px 1px 0px 0px #899599;
+    text-shadow: 0px 1px 0px #e1e2ed;
+    background: linear-gradient(#ededed, #bab1ba);
+    transform: translateX(-50%);
+    position: relative;
+    left: 50%;
+}

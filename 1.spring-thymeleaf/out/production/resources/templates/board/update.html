@@ -12,7 +12,7 @@
 <th:block layout:fragment="header" th:include="@{/fragments/header}"></th:block>
 <th:block layout:fragment="content" class="content">
     <h2>글쓰기</h2>
-    <form th:action="@{'/board/' + ${PostDto.id}}" method="post" th:object="${PostDto}">
+    <form th:action="@{'/board/post/' + ${PostDto.id}}" method="post" th:object="${PostDto}">
         <div>
             <input type="hidden" th:value="*{id}"/>
         </div>

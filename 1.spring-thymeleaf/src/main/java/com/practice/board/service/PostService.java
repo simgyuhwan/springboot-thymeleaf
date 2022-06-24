@@ -48,4 +48,8 @@ public class PostService {
                 .orElseThrow(EntityExistsException::new);
         return posts.update(postDto);
     }
+
+    public void deletePost(Long postId) {
+        repository.deleteById(postId);
+    }
 }
