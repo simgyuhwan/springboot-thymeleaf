@@ -47,12 +47,26 @@ header.mainButton{
     font-size: 14px;
 }
 
-table, th, td,tr{
+table{
     border: 1px solid black;
     border-collapse: collapse;
     align-content: center;
     width: 450px;
     height: auto;
+    position: absolute;
+    top: 32%;
+    left: 3%;
+}
+th{
+    border: 1px solid black;
+}
+
+td{
+    border: 1px solid black;
+}
+
+tr{
+    border: 1px solid black;
 }
 
 a.btn{
@@ -155,3 +169,7 @@ button.btn{
     border:1px solid #42454c;
 }
 
+.board{
+    position: absolute;
+    left: 4%;
+}

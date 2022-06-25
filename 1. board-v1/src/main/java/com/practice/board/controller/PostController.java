@@ -29,20 +29,7 @@ public class PostController {
         Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0,
                 5, Sort.by(Sort.Direction.DESC,
                         "createdDate"));
-        Page<PostDto> dtos = service.findPage(pageable);
-        System.out.println("==================");
-        System.out.println("==================");
-        System.out.println("==================");
-        System.out.println("==================");
-        System.out.println(dtos.getTotalElements());
-        System.out.println(dtos.getTotalPages());
-        System.out.println(dtos.getSize());
-        System.out.println("==================");
-        System.out.println("==================");
-        System.out.println("==================");
-        System.out.println("==================");
-
-        model.addAttribute("posts", dtos);
+        model.addAttribute("posts", service.findPage(pageable));
         model.addAttribute("maxPage", 5);
         return "board/board";
     }
