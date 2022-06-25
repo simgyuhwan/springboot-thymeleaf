@@ -51,25 +51,40 @@
                 </td>
             </tr>
         </table>
-        <div th:with="start=${(posts.number/maxPage)*maxPage + 1}, end=(${(posts.totalPages == 0) ? 1 : (start + (maxPage - 1) < posts.totalPages ? start + (maxPage - 1) : posts.totalPages)})" >
-                <ul>
-                    <li class="page-item" th:classappend="${posts.first}?'disabled'">
-                        <a th:onclick="'javascript:page(' + ${posts.number - 1} + ')'" aria-label='Previous' class="page-link">
-                            <span aria-hidden='true'>Previous</span>
-                        </a>
-                    </li>
 
-                    <li class="page-item" th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${posts.number eq page-1}?'active':''">
-                        <a th:onclick="'javascript:page(' + ${page - 1} + ')'" th:inline="text" class="page-link">[[${page}]]</a>
-                    </li>
+        <div class="page_wrap"  th:with="start=${(posts.number/maxPage)*maxPage + 1},
+                    end=(${(posts.totalPages == 0) ? 1 : (start + (maxPage - 1) < posts.totalPages ? start + (maxPage - 1) : posts.totalPages)})">
+            <div class="page_nation">
+                <a class="arrow pprev" th:onclick="'javavscript:page(' + ${start} + ')'" ></a>
+                <a class="arrow prev" th:onclick="'javascript:page(' + ${((posts.number - 1) >= 0) ? (posts.number - 1) : 1} + ')'"></a>
 
-                    <li class="page-item" th:classappend="${posts.last}?'disabled'">
-                        <a th:onclick="'javascript:page(' + ${posts.number + 1} + ')'" aria-label='Next' class="page-link">
-                            <span aria-hidden='true'>Next</span>
-                        </a>
-                    </li>
-                </ul>
+                <span th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${posts.number eq page-1}?'active':''">
+                    <a th:onclick="'javascript:page(' + ${page - 1} + ')'" th:inline="text" class="active">[[${page}]]</a>
+                </span>
+
+                <a class="arrow next" th:onclick="'javascript:page(' + ${((posts.number + 1) < end) ? (posts.number + 1) : (end - 1)}+ ')'"></a>
+                <a class="arrow nnext" th:onclick="'javascript:page(' +${end-1}+')' "></a>
+            </div>
         </div>
+<!--        <div th:with="start=${(posts.number/maxPage)*maxPage + 1}, end=(${(posts.totalPages == 0) ? 1 : (start + (maxPage - 1) < posts.totalPages ? start + (maxPage - 1) : posts.totalPages)})" >-->
+<!--                <ul>-->
+<!--                    <li class="page-item" th:classappend="${posts.first}?'disabled'">-->
+<!--                        <a th:onclick="'javascript:page(' + ${posts.number - 1} + ')'" aria-label='Previous' class="page-link">-->
+<!--                            <span aria-hidden='true'>Previous</span>-->
+<!--                        </a>-->
+<!--                    </li>-->
+
+<!--                    <li class="page-item" th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${posts.number eq page-1}?'active':''">-->
+<!--                        <a th:onclick="'javascript:page(' + ${page - 1} + ')'" th:inline="text" class="page-link">[[${page}]]</a>-->
+<!--                    </li>-->
+
+<!--                    <li class="page-item" th:classappend="${posts.last}?'disabled'">-->
+<!--                        <a th:onclick="'javascript:page(' + ${posts.number + 1} + ')'" aria-label='Next' class="page-link">-->
+<!--                            <span aria-hidden='true'>Next</span>-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--        </div>-->
     </th:block>
 
 
