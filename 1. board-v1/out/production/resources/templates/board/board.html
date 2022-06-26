@@ -13,8 +13,20 @@
     <th:block layout:fragment="header" th:include="@{/fragments/header}"></th:block>
     <th:block layout:fragment="script">
         <script th:inline="javascript">
+
+            $(document).ready( function(){
+                $("#searchBtn").on("click", function(e){
+                    e.preventDefault();
+                    page(0);
+                });
+            });
+
             function page(page){
-                location.href="/board/" + page;
+                let searchBy = $("#searchBy").value();
+                let searchQuery = $("#searchQuery").value();
+
+                location.href="/board/" + page + "?searchBy=" + searchBy
+                + "?searchQuery=" + searchQuery;
             }
 
         </script>
@@ -29,53 +41,62 @@
         <div style="margin-left: 20%;">
             <button class="btn" type="button" th:onclick="'location.href=' + '\'' + @{/board/post} + '\''" >글쓰기</button>
         </div>
+        <form th:action="@{'/board/' + ${posts.number}}" role="form" th:object="${posts}">
+            <table class="board_table" bordercolor="green"  height="200">
+                <thead>
+                    <th scope="col">No</th>
+                    <th scope="col">title</th>
+                    <th scope="col">writer</th>
+                    <th scope="col">regTime</th>
+                    <th>delete</th>
+                </thead>
+                <tbody>
+                    <tr th:each="postDto, status: ${posts.getContent()}" >
+                        <td th:text="${status.count}">1</td>
+                        <td>
+                            <a th:href="@{'/board/post/detail/' + ${postDto.id}}" style="text-decoration: none;">
+                                <span th:text="${postDto.title}">제목</span>
+                            </a>
+                        </td>
+                        <td th:text="${postDto.writer}" >작성자</td>
+                        <td th:text="${postDto.createdDate}"></td>
+                        <td>
+                            <form th:action="@{'/board/post/detail/'+ ${postDto.id}}" method="post">
+                                <input type="hidden" name="_method" value="delete"/>
+                                <button type="submit" class="delete-btn" >삭제</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
 
-        <table class="board_table" bordercolor="green"  height="200">
-            <thead>
-                <th scope="col">No</th>
-                <th scope="col">title</th>
-                <th scope="col">writer</th>
-                <th scope="col">regTime</th>
-                <th>delete</th>
-            </thead>
-            <tbody>
-                <tr th:each="postDto, status: ${posts.getContent()}" >
-                    <td th:text="${status.count}">1</td>
-                    <td>
-                        <a th:href="@{'/board/post/detail/' + ${postDto.id}}" style="text-decoration: none;">
-                            <span th:text="${postDto.title}">제목</span>
-                        </a>
-                    </td>
-                    <td th:text="${postDto.writer}" >작성자</td>
-                    <td th:text="${postDto.createdDate}"></td>
-                    <td>
-                        <form th:action="@{'/board/post/detail/'+ ${postDto.id}}" method="post">
-                            <input type="hidden" name="_method" value="delete"/>
-                            <button type="submit" class="delete-btn" >삭제</button>
-                        </form>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+            <div class="page_wrap"  th:with="start=${(posts.number/maxPage)*maxPage + 1},
+                        end=(${(posts.totalPages == 0) ? 1 : (start + (maxPage - 1) < posts.totalPages ? start + (maxPage - 1) : posts.totalPages)})">
+                <div class="page_nation">
+                    <a class="arrow pprev" th:onclick="'javavscript:page(' + ${start} + ')'" ></a>
+                    <a class="arrow prev" th:onclick="'javascript:page(' + ${((posts.number - 1) >= 0) ? (posts.number - 1) : 1} + ')'"></a>
 
-        <div class="page_wrap"  th:with="start=${(posts.number/maxPage)*maxPage + 1},
-                    end=(${(posts.totalPages == 0) ? 1 : (start + (maxPage - 1) < posts.totalPages ? start + (maxPage - 1) : posts.totalPages)})">
-            <div class="page_nation">
-                <a class="arrow pprev" th:onclick="'javavscript:page(' + ${start} + ')'" ></a>
-                <a class="arrow prev" th:onclick="'javascript:page(' + ${((posts.number - 1) >= 0) ? (posts.number - 1) : 1} + ')'"></a>
+                    <span th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${posts.number eq page-1}?'active':''">
+                        <a th:onclick="'javascript:page(' + ${page - 1} + ')'" th:inline="text" class="active">[[${page}]]</a>
+                    </span>
 
-                <span th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${posts.number eq page-1}?'active':''">
-                    <a th:onclick="'javascript:page(' + ${page - 1} + ')'" th:inline="text" class="active">[[${page}]]</a>
-                </span>
-
-                <a class="arrow next" th:onclick="'javascript:page(' + ${((posts.number + 1) < end) ? (posts.number + 1) : (end - 1)}+ ')'"></a>
-                <a class="arrow nnext" th:onclick="'javascript:page(' +${end-1}+')' "></a>
+                    <a class="arrow next" th:onclick="'javascript:page(' + ${((posts.number + 1) < end) ? (posts.number + 1) : (end - 1)}+ ')'"></a>
+                    <a class="arrow nnext" th:onclick="'javascript:page(' +${end-1}+')' "></a>
+                </div>
             </div>
+
+            <div class="form-inline" th:object="${postSearchDto}">
+                <select th:field="*{searchBy}" class="form-control" style="width: auto;">
+                    <option value="title">글제목</option>
+                    <option value="content">내용</option>
+                    <option value="writer">작성자</option>
+                </select>
+                <input type="text" th:field="*{searchQuery}" placeholder="검색어를 입력해주세요." class="form-control">
+                <button id="searchBtn" type="submit" class="form-button">검색</button>
+            </div>
+        </form>
         </div>
 
-            <div>
-            </div>
-        </div>
     </th:block>
 
     <th:block layout:fragment="footer" th:include="@{/fragments/footer}"></th:block>

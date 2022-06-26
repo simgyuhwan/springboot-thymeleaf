@@ -188,3 +188,10 @@ button.btn{
     border: solid #008;
     text-align: center;
 }
+
+.form-inline{
+    position: fixed;
+    top: 63%;
+    bottom: 36%;
+    left: 11%;
+}

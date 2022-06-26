@@ -1,6 +1,7 @@
 package com.practice.board.controller;
 
 import com.practice.board.dto.PostDto;
+import com.practice.board.dto.PostSearchDto;
 import com.practice.board.entity.Posts;
 import com.practice.board.service.PostService;
 import lombok.RequiredArgsConstructor;
@@ -25,10 +26,11 @@ public class PostController {
     private final PostService service;
 
     @GetMapping(value = {"", "/{page}"})
-    public String list(Model model, @PathVariable("page") Optional<Integer> page ){
+    public String list(Model model, @PathVariable("page") Optional<Integer> page, PostSearchDto postSearchDto){
         Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0,
                 5, Sort.by(Sort.Direction.DESC,
                         "createdDate"));
+        model.addAttribute("postSearchDto", new PostSearchDto());
         model.addAttribute("posts", service.findPage(pageable));
         model.addAttribute("maxPage", 5);
         return "board/board";
