@@ -13,18 +13,23 @@
 
 <th:block layout:fragment="content" class="content">
     <form action="">
-        <fieldset>
+        <fieldset id="loginPage">
+            <legend>Login Page</legend>
             <label for="id">ID : </label>
-            <input type="text" maxlength="10" size="10" id="id">
+            <input type="text" maxlength="10" size="20" id="id" placeholder="아이디를 입력하세요." autofocus required >
 
             <br><br>
-            <label for="password">Password : </label>
-            <input type="password" maxlength="15" size="15" id="password">
+            <label for="password">PW : </label>
+            <input type="password" maxlength="15" size="20" id="password" placeholder="비밀번호를 입력하세요." required>
             <br><br>
-            <input type="submit" value="Login">
+            <input type="submit" value="SignIn">
+            <input type="button" value="SignUp">
         </fieldset>
     </form>
 </th:block>
+
+<th:block layout:fragment="footer" th:include="@{/fragments/footer}"></th:block>
+
 
 </body>
 </html>

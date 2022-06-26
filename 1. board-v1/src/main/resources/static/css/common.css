@@ -28,6 +28,10 @@ header.mainButton{
     text-decoration: none;
 }
 
+.board_all{
+    text-align: center;
+}
+
 .content{
     height: 80%;
     min-height: 100vh;
@@ -74,12 +78,15 @@ a.btn{
     font-size: 1rem;
     color: black;
     padding: 10px 20px 10px 20px;
-    margin: 20px;
+    margin: 16px;
     display: inline-table;
     border-radius: 10px;
     transition: auto;
     font-family: revert;
     background-color: aquamarine;
+    position: relative;
+    left: 15%;
+    top: 51%;
 }
 
 button.btn{
@@ -113,7 +120,7 @@ button.btn{
     background: linear-gradient(#ededed, #bab1ba);
     transform: translateX(-50%);
     position: relative;
-    left: 50%;
+    left: 30%;
 }
 
 .page_wrap {
@@ -172,4 +179,12 @@ button.btn{
 .board{
     position: absolute;
     left: 4%;
+}
+
+#loginPage{
+    width: 23%;
+    margin: auto;
+    padding: 3%;
+    border: solid #008;
+    text-align: center;
 }

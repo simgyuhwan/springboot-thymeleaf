@@ -11,17 +11,21 @@
 <body>
 <th:block layout:fragment="header" th:include="@{/fragments/header}"></th:block>
 <th:block layout:fragment="content" class="content">
+
+    <div style="position: relative; left: 5%;">
     <h2>글쓰기</h2>
 
     <form th:action="@{/board/post}" method="post" th:object="${PostDto}">
         <div>
-            <label>제목<input type="text" th:field="*{title}" size="80" id="title" placeholder="제목"></label>
-        </div>
+            <label>제목 : <input type="text" th:field="*{title}" size="80" id="title" placeholder="제목" autofocus required></label>
+        </div><br>
+
         <div>
-            <label>작성자<input type="text" th:field="*{writer}" size="80" id="writer" placeholder="작성자"></label>
-        </div>
+            <label>작성자 : <input type="text" th:field="*{writer}" size="80" id="writer" placeholder="작성자" required></label>
+        </div><br>
         <div>
-            <label>내용<textarea type="text" th:field="*{content}" rows="4" cols="80" id="content" placeholder="내용"></textarea></label>
+            <label>내용 :<br><textarea type="text" th:field="*{content}" rows="4" cols="80" id="content" placeholder="내용"
+                                style="position: relative; left: 4%;" required></textarea></label>
         </div>
         <div style="width:650px; text-align: center;">
             <button type="submit">등록</button>
@@ -29,6 +33,7 @@
             <button type="button" th:onclick="'location.href=\''+ @{/board}+'\''">취소</button>
         </div>
     </form>
+    </div>
 </th:block>
 
 <th:block layout:fragment="footer" th:include="@{/fragments/footer}"></th:block>

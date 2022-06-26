@@ -6,8 +6,10 @@
                 <a class="mainButton" style="text-decoration-line: none; color: antiquewhite;" th:href="@{/board}">Board</a>
             </h1>
         </div>
-        <nav>
-            <span>Login</span>
+        <nav style="position: relative; right: 3%;">
+            <a th:onclick="'location.href=' +'\'' + @{/login} +'\''">SignIn</a>
+            <a th:onclick="'location.href=' +'\'' + @{/login} +'\''">SignUp</a>
+
         </nav>
     </div>
 </html>

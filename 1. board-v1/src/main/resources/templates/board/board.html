@@ -21,9 +21,11 @@
     </th:block>
 
     <th:block layout:fragment="content" class="content">
+        <div class="board_all">
         <div class="board">
             <h1>게시판</h1>
         </div>
+
         <div style="margin-left: 20%;">
             <button class="btn" type="button" th:onclick="'location.href=' + '\'' + @{/board/post} + '\''" >글쓰기</button>
         </div>
@@ -71,11 +73,12 @@
             </div>
         </div>
 
-        <div>
+            <div>
+            </div>
         </div>
-
     </th:block>
 
+    <th:block layout:fragment="footer" th:include="@{/fragments/footer}"></th:block>
 
 
 </body>
