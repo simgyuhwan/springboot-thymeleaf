@@ -1,19 +1,14 @@
 body, html{
     height: 100%;
-    align-content: center;
     padding-top: 75px;
     margin: 0;
 }
 
 .header{
     background-color: darkslategrey;
-    height: 10%;
+    height: 100px;
     align-content: center;
     color: antiquewhite;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
 
     display: flex;
     justify-content: space-between;
@@ -30,21 +25,22 @@ header.mainButton{
 
 .board_all{
     text-align: center;
+    position: relative;
+    display: table;
+    width: 800px;
+    margin: 0 auto;
 }
 
 .content{
-    height: 80%;
     min-height: 100vh;
     position: relative;
     width: 100%;
     padding-bottom: 110px;
+    margin: 0 auto;
 }
 
 .footer{
-    background-color: whitesmoke;
     height: 110px;
-    bottom: 0px;
-    position: absolute;
     width: 100%;
     background-color: darkslategrey;
     text-align: center;
@@ -55,12 +51,29 @@ table{
     border: 1px solid black;
     border-collapse: collapse;
     align-content: center;
-    width: 450px;
+    width: 800px;
     height: auto;
-    position: absolute;
-    top: 32%;
-    left: 3%;
+    margin-right: auto;
+
 }
+.tableMan{
+    text-align: center;
+    border: 1px solid #dddddd;
+    align-content: center;
+    margin-top: 100px;
+    margin-left: auto;
+}
+
+.detail-button{
+    margin-left: 548px;
+}
+
+.table-boss{
+    width: 800px;
+    margin-right: auto;
+    display: table-cell;
+}
+
 th{
     border: 1px solid black;
 }
@@ -100,14 +113,14 @@ button.btn{
     transition: auto;
     font-family: revert;
     background-color: aliceblue;
-    position: absolute;
+    /*position: absolute;*/
     top: 26%;
     right: 46%;
 }
 
 .delete-btn{
     font-size: 12px;
-    font-family: auto;
+    /*font-family: auto;*/
     width: 50px;
     height: 26px;
     border-width: 1px;
@@ -120,16 +133,16 @@ button.btn{
     background: linear-gradient(#ededed, #bab1ba);
     transform: translateX(-50%);
     position: relative;
-    left: 30%;
+    left: 15%;
 }
 
 .page_wrap {
-    text-align:center;
     font-size:0;
     text-align: left;
-    position: absolute;
     top: 67%;
     right: 61%;
+    text-align: center;
+    margin-top:60px
 }
 .page_nation {
     display:inline-block;
@@ -177,8 +190,7 @@ button.btn{
 }
 
 .board{
-    position: absolute;
-    left: 4%;
+    text-align: center;
 }
 
 #loginPage{
@@ -189,9 +201,12 @@ button.btn{
     text-align: center;
 }
 
+.write{
+    text-align:right;
+    margin-left: 20%;
+}
+
 .form-inline{
-    position: fixed;
-    top: 63%;
-    bottom: 36%;
-    left: 11%;
+    margin-top:40px;
+    padding-bottom:120px;
 }

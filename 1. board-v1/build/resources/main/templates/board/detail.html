@@ -34,8 +34,8 @@
             </tr>
             </tbody>
         </table>
-        <a th:href="@{/board}" class="btn">목록</a>
-        <a th:href="@{'/board/' +${PostDto.id}}" class="btn">수정</a>
+        <a th:href="@{/board}" class="btn">목록보기</a>
+        <a th:href="@{'/board/post/' +${PostDto.id}}" class="btn">수정하기</a>
     </th:block>
     <th:block layout:fragment="footer" th:include="@{/fragments/footer}"></th:block>
 

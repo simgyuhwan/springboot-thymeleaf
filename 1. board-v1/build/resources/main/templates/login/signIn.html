@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default_layout}">
+
+<th:block layout:frament="head">
+    <title>Board</title>
+    <link th:href="@{/css/common.css}" rel="stylesheet"/>
+</th:block>
+<body>
+<th:block layout:fragment="header" th:include="@{/fragments/header}"></th:block>
+
+<th:block layout:fragment="content" class="content">
+    <form action="">
+        <fieldset id="loginPage">
+            <legend>Login Page</legend>
+            <label for="id">ID : </label>
+            <input type="text" maxlength="10" size="20" id="id" placeholder="아이디를 입력하세요." autofocus required >
+
+            <br><br>
+            <label for="password">PW : </label>
+            <input type="password" maxlength="15" size="20" id="password" placeholder="비밀번호를 입력하세요." required>
+            <br><br>
+            <input type="submit" value="SignIn">
+            <input type="button" value="SignUp">
+        </fieldset>
+    </form>
+</th:block>
+
+<th:block layout:fragment="footer" th:include="@{/fragments/footer}"></th:block>
+
+
+</body>
+</html>

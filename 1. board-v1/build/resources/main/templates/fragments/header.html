@@ -1,11 +1,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
     <div class="header">
-        <h1 ><a class="mainButton" style="text-decoration-line: none; color: antiquewhite;" th:href="@{/board}">Board</a></h1>
-        <nav>
-            <span>Login</span>
-<!--            <span>Menu2</span>-->
-<!--            <span>Menu3</span>-->
+        <div id = "logo">
+            <h1>
+                <a class="mainButton" style="text-decoration-line: none; color: antiquewhite;" th:href="@{/board}">Board</a>
+            </h1>
+        </div>
+        <nav style="position: relative; right: 3%;">
+            <a th:onclick="'location.href=' +'\'' + @{/login} +'\''">SignIn</a>
+            <a th:onclick="'location.href=' +'\'' + @{/login} +'\''">SignUp</a>
+
         </nav>
     </div>
 </html>
