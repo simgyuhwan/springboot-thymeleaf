@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
@@ -45,7 +46,7 @@ public class PostController {
     @PostMapping("/post")
     public String write(Model model, @Validated PostDto postDto){
         model.addAttribute("PostDto", PostDto.of(service.addPosts(postDto)));
-        return "board/detail";
+        return "redirect:/board";
     }
 
     @GetMapping("/post/detail/{postId}")
@@ -67,6 +68,7 @@ public class PostController {
     }
 
     @DeleteMapping("/post/detail/{postId}")
+    @ResponseStatus(HttpStatus.OK)
     public String delete(@PathVariable Long postId){
         service.deletePost(postId);
         return "redirect:/board";
