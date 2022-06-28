@@ -31,8 +31,9 @@ public class PostController {
         Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0,
                 5, Sort.by(Sort.Direction.DESC,
                         "createdDate"));
+
         model.addAttribute("postSearchDto", new PostSearchDto());
-        model.addAttribute("posts", service.findPage(pageable));
+        model.addAttribute("posts", service.findPage(postSearchDto, pageable));
         model.addAttribute("maxPage", 5);
         return "board/board";
     }

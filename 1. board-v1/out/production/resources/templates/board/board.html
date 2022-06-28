@@ -20,10 +20,9 @@
             });
 
             function page(page){
-                /*<![CDATA[*/
-                let searchBy = [[${searchBy}]];
-                let searchQuery = [[${searchQuery}]];
-                /*]]>*/
+                let searchBy = $("#searchBy").val();
+                let searchQuery = $("#searchQuery").val();
+
                 location.href="/board/" + page + "?searchBy=" + searchBy
                 + "&searchQuery=" + searchQuery;
             }

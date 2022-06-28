@@ -1,8 +1,10 @@
 package com.practice.board.service;
 
 import com.practice.board.dto.PostDto;
+import com.practice.board.dto.PostSearchDto;
 import com.practice.board.entity.Posts;
 import com.practice.board.repository.PostRepository;
+import com.practice.board.repository.PostSearchRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -21,7 +23,7 @@ import java.util.stream.Collectors;
 public class PostService {
 
     private final PostRepository repository;
-    private final PostDtoService postDtoService;
+    private final PostSearchRepository searchRepository;
 
     public Long register(Posts posts) {
         return repository.save(posts).getId();
@@ -58,8 +60,9 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public Page<PostDto> findPage(Pageable pageable){
-        Page<PostDto> pages = repository.findAll(pageable).map(m -> PostDto.of(m));
+    public Page<PostDto> findPage(PostSearchDto postSearchDto, Pageable pageable){
+        Page<PostDto> pages = searchRepository.findAllBySearchDto(postSearchDto, pageable).map(m -> PostDto.of(m));
+        //Page<PostDto> pages = repository.findAll(pageable).map(m -> PostDto.of(m));
         return pages;
     }
 
