@@ -4,15 +4,12 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/default_layout}">
 
-<th:block layout:frament="head">
-    <title>Board</title>
-    <link th:href="@{/css/common.css}" rel="stylesheet"/>
-</th:block>
+<th:block layout:frament="head" th:include="@{/fragments/head}"></th:block>
 <body>
 <th:block layout:fragment="header" th:include="@{/fragments/header}"></th:block>
 
 <th:block layout:fragment="content" class="content">
-    <div class="login-page"  >
+    <div class="login-page" >
         <form th:action="@{/login}" method="post">
             <fieldset id="loginPage">
                 <legend>Login Page</legend>
@@ -24,7 +21,7 @@
                 <input type="password" maxlength="15" size="20" id="password" placeholder="비밀번호를 입력하세요." required>
                 <br><br>
                 <input type="submit" value="SignIn">
-                <input type="button" value="SignUp">
+                <input type="button" th:onclick="'location.href='+'\''+@{/signup}+ '\''" value="SignUp">
             </fieldset>
         </form>
     </div>

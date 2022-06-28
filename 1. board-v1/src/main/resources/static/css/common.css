@@ -239,3 +239,20 @@ button.btn{
 .login-page{
     margin: 61px;
 }
+
+.signup-box{
+    align-content: center;
+    text-align: center;
+    margin: 31px;
+    padding: 13px;
+}
+
+.signup-page{
+    margin: 148px;
+}
+
+#SignUpPage{
+    margin: 116px;
+    padding: 12px;
+}
+
