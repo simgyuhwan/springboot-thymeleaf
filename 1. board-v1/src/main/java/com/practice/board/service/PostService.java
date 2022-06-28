@@ -62,7 +62,6 @@ public class PostService {
     @Transactional(readOnly = true)
     public Page<PostDto> findPage(PostSearchDto postSearchDto, Pageable pageable){
         Page<PostDto> pages = searchRepository.findAllBySearchDto(postSearchDto, pageable).map(m -> PostDto.of(m));
-        //Page<PostDto> pages = repository.findAll(pageable).map(m -> PostDto.of(m));
         return pages;
     }
 

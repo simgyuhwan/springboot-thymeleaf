@@ -9,20 +9,23 @@
 <th:block layout:fragment="header" th:include="@{/fragments/header}"></th:block>
 <th:block layout:fragment="content" class="content">
 
-    <div style="position: relative; left: 5%;">
+    <div class="write_total">
     <h2>글쓰기</h2>
 
     <form th:action="@{/board/post}" method="post" th:object="${PostDto}">
         <div>
-            <label>제목 : <input type="text" th:field="*{title}" size="80" id="title" placeholder="제목" autofocus required></label>
+            <label for="title">제목 :</label>
+            <div class="write_input"><input type="text" th:field="*{title}" size="80" id="title" placeholder="제목" autofocus required></div>
         </div><br>
 
         <div>
-            <label>작성자 : <input type="text" th:field="*{writer}" size="80" id="writer" placeholder="작성자" required></label>
+            <label for="writer">작성자 :</label>
+            <div class="write_input"><input type="text" th:field="*{writer}" size="80" id="writer" placeholder="작성자" required></div>
         </div><br>
         <div>
-            <label>내용 :<br><textarea type="text" th:field="*{content}" rows="4" cols="80" id="content" placeholder="내용"
-                                style="position: relative; left: 4%;" required></textarea></label>
+            <label for="content">내용 :</label>
+            <div class="write_input"><textarea type="text" th:field="*{content}" rows="4" cols="80" id="content" placeholder="내용"
+                                 required></textarea></div>
         </div>
         <div style="width:650px; text-align: center;">
             <button type="submit">등록</button>
