@@ -4,13 +4,11 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/default_layout}">
 
-<th:block layout:frament="head">
-    <title>Board</title>
-    <link th:href="@{/css/common.css}" rel="stylesheet"/>
-</th:block>
+<th:block layout:frament="head" th:include="@{/fragments/head}"></th:block>
 
 <body>
     <th:block layout:fragment="header" th:include="@{/fragments/header}"></th:block>
+
     <th:block layout:fragment="script">
         <script th:inline="javascript">
 
@@ -22,11 +20,34 @@
             });
 
             function page(page){
-                let searchBy = $("#searchBy").value();
-                let searchQuery = $("#searchQuery").value();
+                let searchBy = $("#searchBy").val();
+                let searchQuery = $("#searchQuery").val();
 
                 location.href="/board/" + page + "?searchBy=" + searchBy
-                + "?searchQuery=" + searchQuery;
+                + "&searchQuery=" + searchQuery;
+            }
+
+            function ConfirmDelete(postId){
+                let x = confirm("Are you sure you want to delete?");
+                console.log(postId);
+                const reqUrl = "/board/post/detail/" + postId;
+                if(x) {
+                    $.ajax({
+                        type: "delete",
+                        url: reqUrl,
+                        success: function(){
+                            console.log("ajax success");
+                            location.href = "/board"
+                        },
+                        error: function(){
+                            alert("ajax 실패");
+                        }
+                    })
+
+                    return true;
+                }
+                else
+                    return false;
             }
 
         </script>
@@ -38,10 +59,13 @@
             <h1>게시판</h1>
         </div>
 
-        <div style="margin-left: 20%;">
+        <div class = "write" >
             <button class="btn" type="button" th:onclick="'location.href=' + '\'' + @{/board/post} + '\''" >글쓰기</button>
         </div>
+
         <form th:action="@{'/board/' + ${posts.number}}" role="form" th:object="${posts}">
+            <div class="table-boss">
+
             <table class="board_table" bordercolor="green"  height="200">
                 <thead>
                     <th scope="col">No</th>
@@ -61,14 +85,13 @@
                         <td th:text="${postDto.writer}" >작성자</td>
                         <td th:text="${postDto.createdDate}"></td>
                         <td>
-                            <form th:action="@{'/board/post/detail/'+ ${postDto.id}}" method="post">
                                 <input type="hidden" name="_method" value="delete"/>
-                                <button type="submit" class="delete-btn" >삭제</button>
-                            </form>
+                                <input type="button" th:onclick="'javascript:ConfirmDelete(' + ${postDto.id}+')'" class="delete-btn" value="삭제" >
                         </td>
                     </tr>
                 </tbody>
             </table>
+            </div>
 
             <div class="page_wrap"  th:with="start=${(posts.number/maxPage)*maxPage + 1},
                         end=(${(posts.totalPages == 0) ? 1 : (start + (maxPage - 1) < posts.totalPages ? start + (maxPage - 1) : posts.totalPages)})">
@@ -95,6 +118,8 @@
                 <button id="searchBtn" type="submit" class="form-button">검색</button>
             </div>
         </form>
+
+
         </div>
 
     </th:block>

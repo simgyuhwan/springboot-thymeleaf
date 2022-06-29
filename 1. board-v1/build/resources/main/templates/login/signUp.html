@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultiraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default_layout}">
+
+<th:block layout:fragment="head" th:include="@{/fragments/head}"></th:block>
+<body>
+
+<th:block layout:fragment="header" th:include="@{/fragments/header}"></th:block>
+
+<th:block layout:fragment="content" class="content">
+    <div class="signup-page">
+        <form th:action="@{/signin}" method="post">
+
+            <fieldset id="SignUpPage">
+                <legend>SignUp Page</legend>
+
+                <div class="signup-box">
+                    <div>
+                        <div class="label"><label for="username">이름</label></div>
+                        <input type="text" id="username" autofocus required>
+                    </div>
+
+                    <div>
+                        <div class="label"><label for="password1">비밀번호</label> </div>
+                        <input type="password" id="password1" >
+                    </div>
+
+                    <div style="margin-left: 11px;">
+                        <div class="label"><label for="password2">비밀번호 확인</label> </div>
+                        <input type="password2" id="password2" style=" margin-left: 42px;"><button type="button"  style="margin-left: inherit;">검증</button>
+                    </div>
+
+                    <div>
+                        <div class="label"><label for="email">이메일</label></div>
+                        <input type="email" id="email">
+                    </div>
+
+                    <div>
+                        <div class="label"><label for="phoneNum">핸드폰 번호</label></div>
+                        <input type="tel" id="phoneNum">
+                    </div>
+
+                    <div>
+                        <div class="label"><label for="address">주소</label></div>
+                        <input type="text" id="address">
+                    </div>
+
+                    <div style="padding: 8px;">
+                        <button type="submit">회원가입</button>
+                        <button type="button" th:onclick="'location.href='+'\''+ @{/board}+'\''">취소</button>
+                    </div>
+
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</th:block>
+
+<th:block layout:fragment="footer" th:include="@{fragments/footer}"></th:block>
+
+</body>
+
+
+</html>

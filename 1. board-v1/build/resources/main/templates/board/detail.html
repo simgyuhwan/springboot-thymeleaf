@@ -4,16 +4,15 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/default_layout}">
 
-<th:block layout:frament="head">
-    <title>Read Post</title>
-    <link th:href="@{/css/common.css}" rel="stylesheet"/>
-</th:block>
+<th:block layout:frament="head" th:include="@{/fragments/head}"></th:block>
 
 <body>
     <th:block layout:fragment="header" th:include="@{/fragments/header}"></th:block>
     <th:block layout:fragment="content" class="content">
 
-        <table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
+        <div class="detail-total">
+            <div class="detail-table">
+        <table class="tableMan" style="text-align: center; border: 1px solid #dddddd">
             <thead>
                 <tr>
                     <th colspan="2" style="background-color: #eeeeee; text-align: center;">게시판 글 보기</th>
@@ -34,8 +33,12 @@
             </tr>
             </tbody>
         </table>
-        <a th:href="@{/board}" class="btn">목록보기</a>
-        <a th:href="@{'/board/post/' +${PostDto.id}}" class="btn">수정하기</a>
+            </div>
+            <div class="detail-button">
+                <a th:href="@{/board}" class="btn">목록보기</a>
+                <a th:href="@{'/board/post/' +${PostDto.id}}" class="btn">수정하기</a>
+            </div>
+        </div>
     </th:block>
     <th:block layout:fragment="footer" th:include="@{/fragments/footer}"></th:block>
 
