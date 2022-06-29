@@ -1,6 +1,6 @@
 package com.practice.factory.entity;
 
-import com.practice.board.entity.Posts;
+import com.practice.board.domain.post.entity.Posts;
 
 public class PostFactory {
     public static Posts createPosts(){
