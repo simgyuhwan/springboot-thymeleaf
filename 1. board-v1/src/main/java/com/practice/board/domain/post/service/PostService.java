@@ -1,11 +1,13 @@
 package com.practice.board.domain.post.service;
 
+import com.practice.board.domain.common.spec.SpecBuilder;
 import com.practice.board.domain.post.dto.PostDto;
 import com.practice.board.domain.post.dto.PostSearchDto;
 import com.practice.board.domain.post.entity.Posts;
 import com.practice.board.domain.post.repository.PostRepository;
 import com.practice.board.domain.post.repository.PostSearchRepository;
 import com.practice.board.domain.post.repository.specification.PostSpecificationBuilder;
+import com.practice.board.domain.post.repository.specification.SearchType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityExistsException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -61,13 +64,14 @@ public class PostService {
     }
 
 
-    // 기존 Page 처리 메서드 (사용하지 않음)
+    // Page V1
     @Transactional(readOnly = true)
     public Page<PostDto> findPage(PostSearchDto postSearchDto, Pageable pageable){
         Page<PostDto> pages = searchRepository.findAllBySearchDto(postSearchDto, pageable).map(m -> PostDto.of(m));
         return pages;
     }
 
+    // Page V2
     @Transactional(readOnly = true)
     public Page<PostDto> findSearchPage(PostSearchDto postSearchDto, Pageable pageable){
         if(!StringUtils.hasText(postSearchDto.getSearchQuery())){
@@ -81,6 +85,4 @@ public class PostService {
                 .build(), pageable)
                 .map(m -> PostDto.of(m));
     }
-
-
 }

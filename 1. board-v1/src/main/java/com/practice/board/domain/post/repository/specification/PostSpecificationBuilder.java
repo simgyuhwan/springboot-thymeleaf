@@ -17,10 +17,10 @@ public class PostSpecificationBuilder {
 
     public static class Builder{
 
-        public static List<Specification> spec = new ArrayList<>();
+        private static List<Specification> spec = new ArrayList<>();
 
         public Builder searchBy(String searchBy, String query){
-            spec.add(Arrays.stream(PostSearchType.values())
+            spec.add(Arrays.stream(SearchType.values())
                     .filter(n -> n.name().equals(searchBy.toUpperCase()))
                     .map(n -> n.equalSearchBy(query))
                     .findFirst()
