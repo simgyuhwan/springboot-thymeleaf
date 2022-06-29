@@ -7,8 +7,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import java.util.List;
 
 public interface PostRepository extends JpaRepository<Posts, Long> , JpaSpecificationExecutor<Posts> {
-
     List<Posts> findByTitleContaining(String title);
-
-
 }

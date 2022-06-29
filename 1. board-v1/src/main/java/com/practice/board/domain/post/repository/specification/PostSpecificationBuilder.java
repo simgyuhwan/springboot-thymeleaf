@@ -32,7 +32,4 @@ public class PostSpecificationBuilder {
             return Specification.where(spec.get(0));
         }
     }
-
-
-
 }

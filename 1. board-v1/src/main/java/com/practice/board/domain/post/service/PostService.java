@@ -61,13 +61,14 @@ public class PostService {
     }
 
 
-    // 기존 Page 처리
+    // 기존 Page 처리 메서드 (사용하지 않음)
     @Transactional(readOnly = true)
     public Page<PostDto> findPage(PostSearchDto postSearchDto, Pageable pageable){
         Page<PostDto> pages = searchRepository.findAllBySearchDto(postSearchDto, pageable).map(m -> PostDto.of(m));
         return pages;
     }
 
+    @Transactional(readOnly = true)
     public Page<PostDto> findSearchPage(PostSearchDto postSearchDto, Pageable pageable){
         if(!StringUtils.hasText(postSearchDto.getSearchQuery())){
             return repository.findAll(pageable).map(m -> PostDto.of(m));

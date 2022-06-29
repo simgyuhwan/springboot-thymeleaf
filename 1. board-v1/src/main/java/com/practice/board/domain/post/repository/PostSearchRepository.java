@@ -37,7 +37,4 @@ public class PostSearchRepository {
                 .setParameter("query", "%" + postSearchDto.getSearchQuery() + "%")
                 .setFirstResult((int) pageable.getOffset());
     }
-
-
-
 }
