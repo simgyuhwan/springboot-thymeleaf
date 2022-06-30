@@ -39,6 +39,8 @@ public class SecurityConfig  {
         return new InMemoryUserDetailsManager(user);
     }
 
+
+    // 기본 웹 접근 설정
     @Bean
     SecurityFilterChain web(HttpSecurity http) throws Exception {
         http
@@ -61,4 +63,7 @@ public class SecurityConfig  {
             });
         return http.build();
     }
+
+
+
 }
