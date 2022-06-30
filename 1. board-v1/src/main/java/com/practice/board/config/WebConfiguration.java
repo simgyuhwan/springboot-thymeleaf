@@ -1,4 +1,4 @@
-package com.practice.config;
+package com.practice.board.config;
 
 import com.practice.board.domain.common.converter.StringToEnumConverterFactory;
 import com.practice.board.domain.common.converter.StringToSearchTypeConverter;
