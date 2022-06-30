@@ -1,8 +1,7 @@
 package com.practice.board.domain.post.service;
 
-import com.practice.board.domain.common.spec.SpecBuilder;
 import com.practice.board.domain.post.dto.PostDto;
-import com.practice.board.domain.post.dto.PostSearchDto;
+import com.practice.board.domain.post.dto.SearchDto;
 import com.practice.board.domain.post.entity.Posts;
 import com.practice.board.domain.post.repository.PostRepository;
 import com.practice.board.domain.post.repository.PostSearchRepository;
@@ -17,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityExistsException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -66,22 +64,22 @@ public class PostService {
 
     // Page V1
     @Transactional(readOnly = true)
-    public Page<PostDto> findPage(PostSearchDto postSearchDto, Pageable pageable){
+    public Page<PostDto> findPage(SearchDto postSearchDto, Pageable pageable){
         Page<PostDto> pages = searchRepository.findAllBySearchDto(postSearchDto, pageable).map(m -> PostDto.of(m));
         return pages;
     }
 
     // Page V2
     @Transactional(readOnly = true)
-    public Page<PostDto> findSearchPage(PostSearchDto postSearchDto, Pageable pageable){
-        if(!StringUtils.hasText(postSearchDto.getSearchQuery())){
+    public Page<PostDto> findSearchPage(SearchDto searchDto, Pageable pageable){
+        if(!StringUtils.hasText(searchDto.getSearchQuery())){
             return repository.findAll(pageable).map(m -> PostDto.of(m));
         }
 
         return repository.findAll(PostSpecificationBuilder
                 .builder()
-                .searchBy(postSearchDto.getSearchBy(),
-                        postSearchDto.getSearchQuery())
+                .searchBy(SearchType.valueOf(searchDto.getSearchByToUpper()),
+                        searchDto.getSearchQuery())
                 .build(), pageable)
                 .map(m -> PostDto.of(m));
     }

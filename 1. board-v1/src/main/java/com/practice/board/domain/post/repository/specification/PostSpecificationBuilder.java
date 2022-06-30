@@ -19,12 +19,15 @@ public class PostSpecificationBuilder {
 
         private static List<Specification> spec = new ArrayList<>();
 
-        public Builder searchBy(String searchBy, String query){
-            spec.add(Arrays.stream(SearchType.values())
-                    .filter(n -> n.name().equals(searchBy.toUpperCase()))
-                    .map(n -> n.equalSearchBy(query))
-                    .findFirst()
-                    .get());
+        public Builder searchBy(SearchType searchBy, String query){
+//            spec.add(Arrays.stream(SearchType.values())
+//                    .filter(n -> n.name().equals(searchBy.toUpperCase()))
+//                    .map(n -> n.equalSearchBy(query))
+//                    .findFirst()
+//                    .get());
+
+            spec.add(searchBy.equalSearchBy(query));
+
             return this;
         }
 

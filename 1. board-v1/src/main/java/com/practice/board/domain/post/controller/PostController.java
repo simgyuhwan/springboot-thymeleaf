@@ -1,9 +1,10 @@
 package com.practice.board.domain.post.controller;
 
 import com.practice.board.domain.post.dto.PostDto;
-import com.practice.board.domain.post.dto.PostSearchDto;
+import com.practice.board.domain.post.dto.SearchDto;
 import com.practice.board.domain.post.service.PostService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -18,16 +19,19 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/board")
 @RequiredArgsConstructor
+@Slf4j
 public class PostController {
     private final PostService service;
 
     @GetMapping(value = {"", "/{page}"})
-    public String list(Model model, @PathVariable("page") Optional<Integer> page, PostSearchDto postSearchDto){
+    public String list(Model model, @PathVariable("page") Optional<Integer> page, SearchDto postSearchDto){
         Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0,
                 5, Sort.by(Sort.Direction.DESC,
                         "createdDate"));
 
-        model.addAttribute("postSearchDto", new PostSearchDto());
+        log.info("SearchBy = {}", postSearchDto.getSearchBy());
+
+        model.addAttribute("postSearchDto", new SearchDto());
         model.addAttribute("posts", service.findSearchPage(postSearchDto, pageable));
         model.addAttribute("maxPage", 5);
         return "board/board";
