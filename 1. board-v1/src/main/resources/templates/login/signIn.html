@@ -10,18 +10,18 @@
 
 <th:block layout:fragment="content" class="content">
     <div class="login-page" >
-        <form th:action="@{/login}" method="post">
+        <form th:action="@{/signIn}" th:object="${signInDto}" method="post">
             <fieldset id="loginPage">
                 <legend>Login Page</legend>
                 <label for="id" style="text-align: left;">ID  </label>
-                <input type="text" maxlength="10" size="20" id="id" placeholder="아이디를 입력하세요." autofocus required >
+                <input type="text" th:field="*{user_id}" maxlength="10" size="20" id="id" placeholder="아이디를 입력하세요." autofocus required >
 
                 <br><br>
                 <label for="password" style="text-align: left;">PW  </label>
-                <input type="password" maxlength="15" size="20" id="password" placeholder="비밀번호를 입력하세요." required>
+                <input type="password" th:field="*{user_pw}" maxlength="15" size="20" id="password" placeholder="비밀번호를 입력하세요." required>
                 <br><br>
                 <input type="submit" value="SignIn">
-                <input type="button" th:onclick="'location.href='+'\''+@{/signup}+ '\''" value="SignUp">
+                <input type="button" th:onclick="'location.href='+'\''+@{/signUp}+ '\''" value="SignUp">
             </fieldset>
         </form>
     </div>

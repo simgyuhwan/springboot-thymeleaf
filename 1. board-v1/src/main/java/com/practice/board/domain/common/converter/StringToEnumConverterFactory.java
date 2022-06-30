@@ -1,6 +1,5 @@
 package com.practice.board.domain.common.converter;
 
-import com.practice.board.domain.post.repository.specification.SearchType;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.core.convert.converter.ConverterFactory;
 
