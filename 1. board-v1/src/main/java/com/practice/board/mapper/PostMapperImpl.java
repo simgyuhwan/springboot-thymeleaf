@@ -1,4 +1,4 @@
-package com.practice.mapper;
+package com.practice.board.mapper;
 
 public class PostMapperImpl implements PostMapper{
 }
