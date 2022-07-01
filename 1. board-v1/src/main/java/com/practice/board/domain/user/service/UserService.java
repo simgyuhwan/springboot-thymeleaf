@@ -1,6 +1,7 @@
 package com.practice.board.domain.user.service;
 
 import com.practice.board.domain.user.dto.SignUpDto;
+import com.practice.board.domain.user.entity.Role;
 import com.practice.board.domain.user.repository.UserRepository;
 import com.practice.board.exception.UserIdAlreadyExistsException;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,7 @@ public class UserService {
         if(checkUserIdDuplicate(signUpDto.getUserId())){
             throw new UserIdAlreadyExistsException(signUpDto.getUserId());
         }
-        repository.save(signUpDto.toEntity(passwordEncoder));
+        repository.save(signUpDto.toEntityWithRole(passwordEncoder, Role.USER));
     }
 
     private boolean checkUserIdDuplicate(String userId){

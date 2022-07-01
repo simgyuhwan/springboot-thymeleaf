@@ -1,5 +1,6 @@
 package com.practice.board.domain.user.dto;
 
+import com.practice.board.domain.user.entity.Role;
 import com.practice.board.domain.user.entity.User;
 import lombok.Data;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -30,7 +31,7 @@ public class SignUpDto {
     private String phoneNum;
     private String address;
 
-    public User toEntity(PasswordEncoder passwordEncoder){
+    public User toEntityWithRole(PasswordEncoder passwordEncoder, Role role){
         return User.builder()
                 .id(id)
                 .user_id(userId)
@@ -38,6 +39,7 @@ public class SignUpDto {
                 .email(email)
                 .phoneNum(phoneNum)
                 .address(address)
+                .role(role)
                 .build();
     }
 

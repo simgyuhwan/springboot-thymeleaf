@@ -34,9 +34,8 @@ public class User extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-
     @Builder
-    public User(Long id, String user_id, String user_pw, String username, String email, String phoneNum, String address) {
+    public User(Long id, String user_id, String user_pw, String username, String email, String phoneNum, String address, Role role) {
         this.id = id;
         this.userId = user_id;
         this.userPw = user_pw;
@@ -44,6 +43,7 @@ public class User extends BaseEntity {
         this.email = email;
         this.phoneNum = phoneNum;
         this.address = address;
+        this.role = role;
     }
 
 
