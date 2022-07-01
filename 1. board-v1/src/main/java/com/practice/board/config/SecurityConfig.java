@@ -44,11 +44,13 @@ public class SecurityConfig  {
     @Bean
     SecurityFilterChain web(HttpSecurity http) throws Exception {
         http
+            .csrf().disable();
+        http
             .authorizeHttpRequests((authorize) -> {
                 try {
                     authorize
-                        .antMatchers("/board/**", "/signUp", "/signIn").permitAll()
                         .antMatchers("/", "/css/**").permitAll()
+                        .antMatchers("/board/**", "/signUp", "/signIn").permitAll()
                         .antMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                     .and()

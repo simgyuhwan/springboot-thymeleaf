@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -21,13 +23,17 @@ public class User extends BaseEntity {
     private String userId;
     private String userPw;
 
-    @Column()
+    @Column
     private String username;
 
     @Column(unique = true)
     private String email;
     private String phoneNum;
     private String address;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
 
     @Builder
     public User(Long id, String user_id, String user_pw, String username, String email, String phoneNum, String address) {
