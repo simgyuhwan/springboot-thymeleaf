@@ -37,6 +37,7 @@ public class UserController {
 
     @PostMapping("/signUp")
     public String signup(Model model, @Validated SignUpDto signUpDto){
+        userService.signUp(signUpDto);
         return "redirect:/board";
     }
 

@@ -9,7 +9,9 @@
         <nav style="position: relative; right: 3%; cursor: pointer; ">
             <a th:onclick="'location.href=' +'\'' + @{/signIn} +'\''">SignIn</a>
             <a th:onclick="'location.href=' +'\'' + @{/signUp} +'\''">SignUp</a>
+            <div sec:authorize="">
 
+            </div>
         </nav>
     </div>
 </html>

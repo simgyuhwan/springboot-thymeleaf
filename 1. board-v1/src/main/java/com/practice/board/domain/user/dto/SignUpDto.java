@@ -1,11 +1,10 @@
 package com.practice.board.domain.user.dto;
 
+import com.practice.board.domain.user.entity.User;
 import lombok.Data;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 @Data
 public class SignUpDto {
@@ -16,12 +15,13 @@ public class SignUpDto {
     private String username;
 
     @NotBlank
-    private String user_id;
+    private String userId;
 
     @NotBlank
-    private String user_pw;
+    private String userPw;
 
     @Pattern(regexp = "^[a-zA-Z0-9+-\\_.]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$", message = "이메일 형식에 맞춰주세요.")
+    @Email
     @NotBlank
     private String email;
 
@@ -29,5 +29,16 @@ public class SignUpDto {
     @NotBlank
     private String phoneNum;
     private String address;
+
+    public User toEntity(PasswordEncoder passwordEncoder){
+        return User.builder()
+                .id(id)
+                .user_id(userId)
+                .user_pw(passwordEncoder.encode(userPw))
+                .email(email)
+                .phoneNum(phoneNum)
+                .address(address)
+                .build();
+    }
 
 }
