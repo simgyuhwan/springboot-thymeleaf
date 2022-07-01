@@ -10,8 +10,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
-
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -25,4 +23,6 @@ public class UserDetailServiceImpl implements UserDetailsService {
         log.info("loadUserByUsername user.userId = {}", userId);
         return new SecurityUser(user);
     }
+
+
 }
