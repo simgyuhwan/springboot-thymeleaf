@@ -23,13 +23,19 @@ public class UserController {
 
     @GetMapping("/signIn")
     public String login(Model model){
-        model.addAttribute("signInDto", new SignInDto());
+        //model.addAttribute("signInDto", new SignInDto());
         return "login/signIn";
     }
 
-    @PostMapping("/signIn")
-    public String login(Model model, SignInDto signInDto){
-        return "redirect:/board";
+//    @PostMapping("/signIn")
+//    public String login(Model model, SignInDto signInDto){
+//        return "redirect:/board";
+//    }
+
+    @GetMapping("/signIn/error")
+    public String loginError(Model model){
+        model.addAttribute("loginErrorMsg", "아이디 또는 비밀번호를 확인해주세요.");
+        return "login/signIn";
     }
 
     @GetMapping("/signUp")

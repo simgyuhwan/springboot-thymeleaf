@@ -20,8 +20,9 @@
                 <label for="password" style="text-align: left;">PW  </label>
                 <input type="password" name="passPw" maxlength="15" size="20" id="password" placeholder="비밀번호를 입력하세요." required>
                 <br><br>
+                <p th:if="${loginErrorMsg}" th:text="${loginErrorMsg}"></p>
                 <input type="submit" value="SignIn">
-                <input type="button" th:onclick="'location.href='+'\''+@{/signUp}+ '\''" value="SignUp">
+                <input type="button" th:onclick="'location.href='+'\''+@{/user/signUp}+ '\''" value="SignUp">
             </fieldset>
         </form>
     </div>

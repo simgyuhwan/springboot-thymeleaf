@@ -1,7 +1,6 @@
 package com.practice.board.config.security.entity;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
@@ -25,7 +24,5 @@ public class SecurityUser extends User {
     public String getUserId(){
         return user.getUserId();
     }
-
-
 
 }
