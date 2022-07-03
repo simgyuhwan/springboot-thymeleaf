@@ -18,13 +18,13 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     public void signUp(SignUpDto signUpDto) {
-        if(checkUserIdDuplicate(signUpDto.getUserId())){
-            throw new UserIdAlreadyExistsException(signUpDto.getUserId());
-        }
+        validateDuplicateUser(signUpDto);
         repository.save(signUpDto.toEntityWithRole(passwordEncoder, Role.USER));
     }
 
-    private boolean checkUserIdDuplicate(String userId){
-         return repository.existsByUserId(userId);
+    private void validateDuplicateUser(SignUpDto signUpDto){
+        if(repository.existsByUserId(signUpDto.getUserId())){
+            throw new UserIdAlreadyExistsException(signUpDto.getUserId());
+        }
     }
 }
