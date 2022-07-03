@@ -10,8 +10,8 @@ public class SignInDto {
     private Long id;
 
     @NotBlank(message = "아이디를 입력해주세요.")
-    private String user_id;
+    private String userId;
 
     @NotBlank(message = "비밀번호를 입력해주세요.")
-    private String user_pw;
+    private String userPw;
 }
