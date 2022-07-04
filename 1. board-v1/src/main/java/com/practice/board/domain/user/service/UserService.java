@@ -27,4 +27,11 @@ public class UserService {
             throw new UserIdAlreadyExistsException(signUpDto.getUserId());
         }
     }
+
+    public boolean duplicateUserId(String userId) {
+        if(repository.existsByUserId(userId)) {
+            return true;
+        }
+        return false;
+    }
 }

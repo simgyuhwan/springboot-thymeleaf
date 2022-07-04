@@ -23,12 +23,14 @@ public class SignUpDto {
     @Length(min = 8, max = 16, message = "비밀번호는 8자 이상, 16자 이하입니다.")
     private String userPw;
 
+    private String userPw2;
+
     @Pattern(regexp = "^[a-zA-Z0-9+-\\_.]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$", message = "이메일 형식에 맞춰주세요.")
     @Email
     @NotBlank(message = "이메일은 필수 입력 값입니다.")
     private String email;
 
-    @Pattern(regexp = "\\d{2,3}-\\d{3,4}-\\d{4}", message = "비밀번호 형식에 맞춰주세요.")
+    @Pattern(regexp = "\\d{2,3}-\\d{3,4}-\\d{4}", message = "핸드폰 번호 형식에 맞춰주세요.")
     @NotBlank(message = "핸드폰 번호는 필수 입력 값입니다.")
     private String phoneNum;
     private String address;

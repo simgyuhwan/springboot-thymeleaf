@@ -15,6 +15,52 @@
         if(errorMessage != null){
             alert(errorMessage)
         };
+
+        $(document).ready(function(){
+            $("#validationPw").on("click", function(e){
+                e.preventDefault();
+                validationPassword();
+            });
+
+            $("#duplicationUserId").on("click", function(e){
+                e.preventDefault();
+                duplicationUserId();
+            });
+        })
+
+        function duplicationUserId(){
+            let userId = $("#user_id").val();
+            $.ajax({
+                url:'/user/valid/' + userId,
+                type: 'get',
+                success:function(isDuplicate){
+                    if(isDuplicate){
+                        alert("이미 가입된 아이디입니다.")
+                        document.getElementById("userId").value="";
+                    }else{
+                        alert("가입이 가능합니다.")
+                    }
+                },
+                error:function(){
+                    alert("에러 발생")
+                }
+            })
+        }
+
+        function validationPassword(){
+            let prePw = $("#user_pw1").val();
+            let nextPw = $("#user_pw2").val();
+            if(prePw != nextPw){
+                alert("비밀번호가 일치하지 않습니다.")
+                document.getElementById("user_pw1").value ="";
+                document.getElementById("user_pw2").value ="";
+            }else if(prePw.trim() == "" || nextPw.trim() == ""){
+                alert("비밀번호를 입력해주세요.");
+            }else{
+                alert("비밀번호가 일치합니다.");
+            }
+        }
+
     </script>
 
 </th:block>
@@ -39,7 +85,7 @@
                         <input type="text" th:field="*{userId}" id="user_id"
                                style=" margin-left: 74px;">
                         <p th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}">Incorrect data</p>
-                        <button type="button"  style="margin-left: inherit;">중복 확인</button>
+                        <button type="button" id="duplicationUserId" style="margin-left: inherit;">중복 확인</button>
                     </div>
 
                     <div>
@@ -50,9 +96,9 @@
 
                     <div style="margin-left: 11px;">
                         <div class="label"><label for="user_pw2">비밀번호 확인</label> </div>
-                        <input type="password" id="user_pw2" style=" margin-left: 42px;">
-                        <button type="button"  style="margin-left: inherit;">검증</button>
-                    </div>
+                        <input type="password" th:field="*{userPw2}" id="user_pw2" style=" margin-left: 104px;">
+                        <button type="button" id="validationPw" style="margin-left: inherit;">비밀번호 확인</button>
+                   </div>
 
                     <div>
                         <div class="label"><label for="email">이메일</label></div>
@@ -74,7 +120,7 @@
 
                     <div style="padding: 8px;">
                         <button type="submit">가입</button>
-                        <button type="button" th:onclick="'location.href='+'\''+ @{/board}+'\''">취소</button>
+                        <button id="formSubmit" type="button" >취소</button>
                     </div>
 
                 </div>

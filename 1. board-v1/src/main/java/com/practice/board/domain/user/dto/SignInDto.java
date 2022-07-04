@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 
+// 사용 안함
 @Data
 public class SignInDto {
 
