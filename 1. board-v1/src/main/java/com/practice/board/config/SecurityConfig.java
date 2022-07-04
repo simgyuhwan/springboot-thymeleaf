@@ -17,9 +17,12 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import static org.springframework.security.config.Customizer.*;
 
@@ -31,20 +34,20 @@ public class SecurityConfig{
 
     private final UserDetailsService userDetailsService;
 
+
+//    @Bean
+//    public UserDetailsService userDetailsService(){
+//        UserDetails user = User.builder()
+//                .username("user")
+//                .password("password")
+//                .roles("USER")
+//                .build();
+//        return new InMemoryUserDetailsManager(user);
+//    }
+
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    public UserDetailsService userDetailsService(){
-        UserDetails user = User.builder()
-                .passwordEncoder(passwordEncoder()::encode)
-                .username("user")
-                .password("password")
-                .roles("USER")
-                .build();
-        return new InMemoryUserDetailsManager(user);
     }
 
     @Bean
@@ -82,16 +85,19 @@ public class SecurityConfig{
                             .formLogin((formLogin)->
                             {
                                 try {
-                                    formLogin.loginPage("/signIn")
+                                    formLogin.loginPage("/user/signIn")
                                             .usernameParameter("userId")
                                             .passwordParameter("userPw")
-                                            .failureUrl("/loginFailure")
+                                            .failureUrl("/user/signIn/error")
+                                            .defaultSuccessUrl("/board")
                                             //    .loginProcessingUrl("/signIn").defaultSuccessUrl("/board")
                                             .and()
                                             .logout()
-                                            .logoutUrl("/logout").logoutSuccessUrl("/board")
-                                            .and()
-                                            .httpBasic(withDefaults());
+                                            .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
+                                            //.logoutUrl("/logout")
+                                            .logoutSuccessUrl("/board");
+                                          //  .and()
+                                            //.httpBasic(withDefaults());
                                 } catch (Exception e) {
                                     throw new RuntimeException(e);
                                 }

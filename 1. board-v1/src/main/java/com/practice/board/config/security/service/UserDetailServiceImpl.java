@@ -10,8 +10,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.EntityExistsException;
-
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -21,10 +19,8 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String userId) {
-        User user = userRepository.findByUserId(userId);
+        User user = userRepository.findByUserId(userId).orElseThrow(()-> new UsernameNotFoundException(userId));
         log.info("loadUserByUsername user.userId = {}", userId);
         return new SecurityUser(user);
     }
-
-
-}
+    }
