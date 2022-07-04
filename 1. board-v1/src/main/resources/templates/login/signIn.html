@@ -13,12 +13,12 @@
         <form th:action="@{/user/signIn}"  method="post">
             <fieldset id="loginPage">
                 <legend>Login Page</legend>
-                <label for="id" style="text-align: left;">ID  </label>
-                <input type="text" name="userId" maxlength="10" size="20" id="id" placeholder="아이디를 입력하세요." autofocus required >
+                <label for="userId" style="text-align: left;">ID  </label>
+                <input type="text" name="userId" maxlength="10" size="20" id="userId" placeholder="아이디를 입력하세요." autofocus required >
 
                 <br><br>
-                <label for="password" style="text-align: left;">PW  </label>
-                <input type="password" name="passPw" maxlength="15" size="20" id="password" placeholder="비밀번호를 입력하세요." required>
+                <label for="userPw" style="text-align: left;">PW  </label>
+                <input type="password" name="userPw" maxlength="15" size="20" id="userPw" placeholder="비밀번호를 입력하세요." required>
                 <br><br>
                 <p th:if="${loginErrorMsg}" th:text="${loginErrorMsg}"></p>
                 <input type="submit" value="SignIn">

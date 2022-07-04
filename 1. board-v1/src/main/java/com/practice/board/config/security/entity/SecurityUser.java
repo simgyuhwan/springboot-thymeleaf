@@ -11,9 +11,7 @@ public class SecurityUser extends User {
 
     public SecurityUser(com.practice.board.domain.user.entity.User user){
         super(user.getUserId(), user.getUserPw(), AuthorityUtils.createAuthorityList(user.getRole().toString()));
-        log.info("SecurityUser user.userId = {}", user.getUserId());
-        log.info("SecurityUser user.passWd = {}", user.getUserPw());
-        log.info("SecurityUser user.role = {}", user.getRole());
+        log.info("SecurityUser userId = {}, passWd = {}, role = {} ", user.getUserId(), user.getUserPw(), user.getRole());
         this.user = user;
     }
 
