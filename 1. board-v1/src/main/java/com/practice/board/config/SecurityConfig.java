@@ -29,18 +29,18 @@ public class SecurityConfig{
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    @Order(0)
-    public SecurityFilterChain resources(HttpSecurity http) throws Exception {
-        return http.requestMatchers(matchers -> matchers
-                        .antMatchers("/resources/**"))
-                .authorizeHttpRequests(authorize -> authorize
-                        .anyRequest().permitAll())
-                .requestCache(RequestCacheConfigurer::disable)
-                .securityContext(AbstractHttpConfigurer::disable)
-                .sessionManagement(AbstractHttpConfigurer::disable)
-                .build();
-    }
+//    @Bean
+//    @Order(0)
+//    public SecurityFilterChain resources(HttpSecurity http) throws Exception {
+//        return http.requestMatchers(matchers -> matchers
+//                        .antMatchers("/resources/**"))
+//                .authorizeHttpRequests(authorize -> authorize
+//                        .anyRequest().permitAll())
+//                .requestCache(RequestCacheConfigurer::disable)
+//                .securityContext(AbstractHttpConfigurer::disable)
+//                .sessionManagement(AbstractHttpConfigurer::disable)
+//                .build();
+//    }
 
     @Bean
     SecurityFilterChain web(HttpSecurity http) throws Exception {
