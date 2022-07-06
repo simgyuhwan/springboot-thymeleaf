@@ -6,8 +6,8 @@ import lombok.*;
 
 import javax.persistence.*;
 
-@Entity
-@Getter
+@Entity @Getter
+@Table(name = "posts" )
 @NoArgsConstructor
 @AllArgsConstructor
 public class Posts extends BaseEntity {

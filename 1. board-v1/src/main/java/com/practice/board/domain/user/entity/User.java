@@ -11,8 +11,8 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@Getter
+@Entity @Getter
+@Table(name = "user")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User extends BaseEntity {
 
@@ -20,10 +20,10 @@ public class User extends BaseEntity {
     @Column(name="id")
     private Long id;
 
-    @Column(unique = true, name = "userId")
+    @Column(unique = true, name = "user_id")
     private String userId;
 
-    @Column(name = "userPw")
+    @Column(name = "user_pw")
     private String userPw;
 
     @Column(name = "username")
