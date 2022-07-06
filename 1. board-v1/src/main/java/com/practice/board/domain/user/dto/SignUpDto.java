@@ -38,6 +38,7 @@ public class SignUpDto {
     public User toEntityWithRole(PasswordEncoder passwordEncoder, Role role){
         return User.builder()
                 .id(id)
+                .username(username)
                 .user_id(userId)
                 .user_pw(passwordEncoder.encode(userPw))
                 .email(email)

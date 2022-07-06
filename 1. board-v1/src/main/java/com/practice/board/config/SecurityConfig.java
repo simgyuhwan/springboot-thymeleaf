@@ -1,5 +1,6 @@
 package com.practice.board.config;
 
+import com.practice.board.config.security.entrypoint.CustomAuthenticationEntryPoint;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -29,25 +30,16 @@ public class SecurityConfig{
         return new BCryptPasswordEncoder();
     }
 
-//    @Bean
-//    @Order(0)
-//    public SecurityFilterChain resources(HttpSecurity http) throws Exception {
-//        return http.requestMatchers(matchers -> matchers
-//                        .antMatchers("/resources/**"))
-//                .authorizeHttpRequests(authorize -> authorize
-//                        .anyRequest().permitAll())
-//                .requestCache(RequestCacheConfigurer::disable)
-//                .securityContext(AbstractHttpConfigurer::disable)
-//                .sessionManagement(AbstractHttpConfigurer::disable)
-//                .build();
-//    }
-
     @Bean
     SecurityFilterChain web(HttpSecurity http) throws Exception {
         http
             .csrf().disable();
 
         http.userDetailsService(userDetailsService);
+
+        http.authorizeHttpRequests()
+                .antMatchers("/admin/**", "/admin")
+                .hasRole("ADMIN");
 
         http
             .authorizeHttpRequests((authorize) -> {
@@ -56,7 +48,6 @@ public class SecurityConfig{
                         .antMatchers("/", "/css/**").permitAll()
                         .antMatchers("/board/post").authenticated()
                         .antMatchers("/board/**", "/user/**").permitAll()
-                        .antMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                     .and()
                             .formLogin((formLogin)->
@@ -79,6 +70,13 @@ public class SecurityConfig{
                    log.error("security formLogin error = {}", e.getMessage());
                 }
             });
+
+        // 인증 실패시 핸들링
+        http.exceptionHandling()
+                .authenticationEntryPoint(new CustomAuthenticationEntryPoint());
+
+
+
         return http.build();
     }
 }

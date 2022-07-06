@@ -13,28 +13,33 @@ spring:
       mode: always
 
   jpa:
+    defer-datasource-initialization: true
     hibernate:
       ddl-auto: update
     properties:
       hibernate:
         # 보기 좋게 sql문
         format_sql: true
-
     # ddl-auto  속성을 사용할지 말지 결정하는 옵션
     generate-ddl: true
-
     # sql 보여주기
     show-sql: true
-
     database: mysql
    #database-platform: org.hibernate.dialect.H2Dialect
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-    defer-datasource-initialization: true
-
 
   devtools:
     livereload:
       enabled: true
+
+# 파일 설정
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+upload:
+  path: /picture
 
 #thymeleaf
   thymeleaf:

@@ -9,12 +9,15 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.Optional;
 
@@ -46,7 +49,7 @@ public class PostController {
     }
 
     @PostMapping("/post")
-    public String write(Model model, @Validated PostDto postDto){
+    public String write(HttpServletRequest request, Model model, @Validated PostDto postDto){
         model.addAttribute("PostDto", PostDto.of(service.addPosts(postDto)));
         return "redirect:/board";
     }
