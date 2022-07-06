@@ -6,14 +6,24 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: Password!
+  sql:
+    init:
+      mode: always
+
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
     generate-ddl: true
     show-sql: true
     database: mysql
    #database-platform: org.hibernate.dialect.H2Dialect
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    defer-datasource-initialization: true
+
+
   devtools:
     livereload:
       enabled: true

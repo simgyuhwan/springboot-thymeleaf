@@ -16,11 +16,13 @@ public class Posts extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "title")
     private String title;
 
-    @Lob
+    @Lob @Column(name= "content")
     private String content;
 
+    @Column(name = "writer")
     private String writer;
 
     @Builder

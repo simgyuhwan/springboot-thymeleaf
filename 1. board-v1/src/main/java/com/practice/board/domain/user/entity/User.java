@@ -17,18 +17,25 @@ import java.util.List;
 public class User extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
     private Long id;
 
-    @Column(unique = true)
+    @Column(unique = true, name = "userId")
     private String userId;
+
+    @Column(name = "userPw")
     private String userPw;
 
-    @Column
+    @Column(name = "username")
     private String username;
 
-    @Column(unique = true)
+    @Column(unique = true, name="email")
     private String email;
+
+    @Column(name="phone_num")
     private String phoneNum;
+
+    @Column(name="address")
     private String address;
 
     @Enumerated(EnumType.STRING)
