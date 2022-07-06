@@ -54,7 +54,7 @@ public class SecurityConfig{
                 try {
                     authorize
                         .antMatchers("/", "/css/**").permitAll()
-                        .antMatchers("/board/post").hasAnyRole("USER","MANAGER","ADMIN")
+                        .antMatchers("/board/post").authenticated()
                         .antMatchers("/board/**", "/user/**").permitAll()
                         .antMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
