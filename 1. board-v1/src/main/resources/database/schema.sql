@@ -2,7 +2,7 @@ drop table if exists user;
 drop table if exists posts;
 
 create table posts(
-      post_id int auto_increment,
+      post_id bigint not null auto_increment,
       created_date datetime,
       update_date datetime,
       content varchar(1000) not null,
@@ -12,7 +12,7 @@ create table posts(
 );
 
 create table user(
-      id int auto_increment,
+      id bigint not null auto_increment,
       user_id varchar(20) not null,
       user_pw varchar(1000) not null,
       username varchar(20) not null,
