@@ -53,8 +53,7 @@ public class PostController {
     @PostMapping("/post")
     public String write(HttpServletRequest request, Model model, @Validated PostDto postDto,
                         @RequestPart("imgFile") List<MultipartFile> imgFileList){
-        imgFileList.size();
-        model.addAttribute("PostDto", PostDto.of(service.addPosts(postDto)));
+        model.addAttribute("PostDto", service.addPosts(postDto, imgFileList));
         return "redirect:/board";
     }
 

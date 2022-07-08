@@ -9,4 +9,5 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties("upload")
 public class FileProperties {
     private String path;
+    private String imgUrl;
 }

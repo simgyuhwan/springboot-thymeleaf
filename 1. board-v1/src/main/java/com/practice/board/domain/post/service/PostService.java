@@ -14,6 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityExistsException;
 import java.util.List;
@@ -26,15 +27,23 @@ public class PostService {
 
     private final PostRepository repository;
     private final PostSearchRepository searchRepository;
+    private final ImgFileService imgFileService;
 
     public Long register(Posts posts) {
         return repository.save(posts).getId();
     }
 
     public Posts addPosts(PostDto postDto) {
-        Posts posts = Posts.of(postDto);
-        return repository.save(posts);
+        return repository.save(Posts.of(postDto));
     }
+
+    public PostDto addPosts(PostDto postDto, List<MultipartFile> imgFileList){
+        Posts posts = Posts.of(postDto);
+        repository.save(posts);
+
+        imgFileService.Register(posts, imgFileList);
+    }
+
 
     @Transactional(readOnly = true)
     public List<PostDto> getPosts() {
@@ -60,6 +69,7 @@ public class PostService {
     public void deletePost(Long postId) {
         repository.deleteById(postId);
     }
+
 
 
     // Page V1
