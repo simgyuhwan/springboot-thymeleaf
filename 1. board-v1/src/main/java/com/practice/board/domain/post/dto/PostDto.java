@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -29,6 +31,7 @@ public class PostDto {
 
     private LocalDate updateDate;
 
+    private List<ImgFileDto> imgFileDtos = new ArrayList<>();
 
     public PostDto(String title, String content, String writer) {
         this.title = title;

@@ -16,9 +16,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -49,8 +51,9 @@ public class PostController {
     }
 
     @PostMapping("/post")
-    public String write(HttpServletRequest request, Model model, @Validated PostDto postDto){
-        model.addAttribute("PostDto", PostDto.of(service.addPosts(postDto)));
+    public String write(HttpServletRequest request, Model model, @Validated PostDto postDto,
+                        @RequestPart("imgFile") List<MultipartFile> imgFileList){
+        model.addAttribute("PostDto", service.addPosts(postDto, imgFileList));
         return "redirect:/board";
     }
 

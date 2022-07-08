@@ -1,15 +1,12 @@
 package com.practice.board.domain.post.entity;
-
-import com.practice.board.domain.user.entity.User;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import org.springframework.web.multipart.MultipartFile;
+import lombok.*;
 
 import javax.persistence.*;
 
+@Builder
 @Entity @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 @Table(name = "imgFile")
 public class ImgFile {
 
@@ -22,7 +19,8 @@ public class ImgFile {
 
     private String imgUrl;
 
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Posts.class)
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Posts.class,
+    cascade = CascadeType.ALL)
     @JoinColumn(name = "post_id")
     private Posts posts;
 
