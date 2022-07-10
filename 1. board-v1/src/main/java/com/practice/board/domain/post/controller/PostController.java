@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
@@ -52,7 +53,7 @@ public class PostController {
 
     @PostMapping("/post")
     public String write(HttpServletRequest request, Model model, @Validated PostDto postDto,
-                        @RequestPart("imgFile") List<MultipartFile> imgFileList){
+                        @RequestPart("imgFile") List<MultipartFile> imgFileList) throws IOException {
         model.addAttribute("PostDto", service.addPosts(postDto, imgFileList));
         return "redirect:/board";
     }

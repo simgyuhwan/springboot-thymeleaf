@@ -24,11 +24,8 @@
         </div><br>
         <div>
             <label for="imgFileInput">이미지 업로드 : </label>
-            <div th:if="${#lists.isEmpty(PostDto.imgFileDtos)}" class="img_input">
-<!--                <div th:each="num: ${#numbers.sequence(1,5)}">-->
+            <div th:if="${#lists.isEmpty(PostDto.imgFileDtoList)}" class="img_input">
                     <input type="file" name="imgFile" id="imgFileInput" accept="image/*"  multiple/>
-<!--                    <label th:text="이미지 + ${num}"></label>-->
-<!--                </div>-->
             </div>
         </div><br>
         <div>

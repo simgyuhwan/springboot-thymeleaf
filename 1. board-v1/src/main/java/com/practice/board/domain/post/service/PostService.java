@@ -17,6 +17,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityExistsException;
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,11 +38,11 @@ public class PostService {
         return repository.save(Posts.of(postDto));
     }
 
-    public PostDto addPosts(PostDto postDto, List<MultipartFile> imgFileList){
+    public PostDto addPosts(PostDto postDto, List<MultipartFile> imgFileList) throws IOException {
         Posts posts = Posts.of(postDto);
         repository.save(posts);
 
-        imgFileService.Register(posts, imgFileList);
+        return imgFileService.Register(posts, imgFileList);
     }
 
 
