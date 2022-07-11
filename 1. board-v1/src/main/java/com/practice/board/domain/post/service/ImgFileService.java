@@ -35,6 +35,10 @@ public class ImgFileService {
         return postDto;
     }
 
+    public List<ImgFile> getImgFile(Posts posts){
+        return imgFileRepository.findByPosts(posts);
+    }
+
     private ImgFile saveImgFile(MultipartFile multipartFile, Posts posts) throws IOException {
         Assert.notNull(multipartFile, "multipartFile is null");
 
@@ -45,10 +49,11 @@ public class ImgFileService {
         return imgFileRepository.save(ImgFile.builder()
                 .imgName(imgName)
                 .oriImgName(oriImgName)
-                .imgUrl("/posts/image/" + imgName)
+                .imgUrl(fileProp.getImgUrl() + imgName)
                 .posts(posts)
                 .build());
     }
+
 
 
 

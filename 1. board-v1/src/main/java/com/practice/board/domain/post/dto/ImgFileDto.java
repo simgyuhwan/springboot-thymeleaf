@@ -14,6 +14,10 @@ public class ImgFileDto {
     private String oriImgName;
     private String imgUrl;
 
-
+    public ImgFileDto(ImgFile imgFile){
+        this.imgName = imgFile.getImgName();
+        this.oriImgName = imgFile.getOriImgName();
+        this.imgUrl = imgFile.getImgUrl();
+    }
 
 }

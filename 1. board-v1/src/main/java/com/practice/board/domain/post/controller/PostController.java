@@ -52,7 +52,7 @@ public class PostController {
     }
 
     @PostMapping("/post")
-    public String write(HttpServletRequest request, Model model, @Validated PostDto postDto,
+    public String write(Model model, @Validated PostDto postDto,
                         @RequestPart("imgFile") List<MultipartFile> imgFileList) throws IOException {
         model.addAttribute("PostDto", service.addPosts(postDto, imgFileList));
         return "redirect:/board";
@@ -60,13 +60,13 @@ public class PostController {
 
     @GetMapping("/post/detail/{postId}")
     public String read(@PathVariable Long postId, Model model){
-        model.addAttribute("PostDto", PostDto.of(service.getPost(postId)));
+        model.addAttribute("PostDto", service.getPost(postId));
         return "board/detail";
     }
 
     @GetMapping("/post/{postId}")
     public String update(@PathVariable Long postId, Model model){
-        model.addAttribute("PostDto", PostDto.of(service.getPost(postId)));
+        model.addAttribute("PostDto", service.getPost(postId));
         return "board/update";
     }
 

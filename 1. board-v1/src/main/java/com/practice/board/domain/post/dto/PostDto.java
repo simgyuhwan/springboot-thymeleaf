@@ -61,7 +61,8 @@ public class PostDto {
                 .build();
     }
 
-    public void setImgFileDtoList(List<ImgFileDto> imgFileDtoList){
+    public PostDto setImgFileDtoList(List<ImgFileDto> imgFileDtoList){
         this.imgFileDtoList = imgFileDtoList;
+        return this;
     }
 }
