@@ -31,7 +31,7 @@ public class PostDto {
 
     private LocalDate updateDate;
 
-    private List<ImgFileDto> imgFileDtos = new ArrayList<>();
+    private List<ImgFileDto> imgFileDtoList = new ArrayList<>();
 
     public PostDto(String title, String content, String writer) {
         this.title = title;
@@ -59,5 +59,10 @@ public class PostDto {
                 .createdDate(posts.getCreatedDate().toLocalDate())
                 .updateDate(posts.getUpdateDate().toLocalDate())
                 .build();
+    }
+
+    public PostDto setImgFileDtoList(List<ImgFileDto> imgFileDtoList){
+        this.imgFileDtoList = imgFileDtoList;
+        return this;
     }
 }

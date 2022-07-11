@@ -27,6 +27,8 @@
                 <td>작성자</td>
                 <td th:text="${PostDto.writer}" th:value="${PostDto.writer}">작성자 위치</td>
             </tr>
+                <td>이미지</td>
+                <td><img th:src="${PostDto.imgFileDtoList[0].imgUrl}"></td>
             <tr>
                 <td>내용</td>
                 <td colspan="2" style="height: 200px; text-align: left;"  th:text="${PostDto.content}" th:value="${PostDto.content}" readonly></td>

@@ -1,4 +1,5 @@
 package com.practice.board.domain.post.entity;
+import com.practice.board.domain.post.dto.ImgFileDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -23,5 +24,13 @@ public class ImgFile {
     cascade = CascadeType.ALL)
     @JoinColumn(name = "post_id")
     private Posts posts;
+
+    public ImgFileDto toDto(){
+        return ImgFileDto.builder()
+                .imgName(imgName)
+                .oriImgName(oriImgName)
+                .imgUrl(imgUrl)
+                .build();
+    }
 
 }

@@ -47,7 +47,7 @@ public class SecurityConfig{
                     authorize
                         .antMatchers("/", "/css/**").permitAll()
                         .antMatchers("/board/post").authenticated()
-                        .antMatchers("/board/**", "/user/**").permitAll()
+                        .antMatchers("/board/**", "/user/**", "/board/images/**").permitAll()
                         .anyRequest().authenticated()
                     .and()
                             .formLogin((formLogin)->

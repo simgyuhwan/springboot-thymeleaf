@@ -39,8 +39,8 @@ spring:
       max-request-size: 10MB
 
 upload:
-  path: /picture
-  imgUrl: /posts/images/
+  path: c:/image
+  imgUrl: /board/images/
 
 #thymeleaf
   thymeleaf:
