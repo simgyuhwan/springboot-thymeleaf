@@ -27,8 +27,10 @@
                 <td>작성자</td>
                 <td th:text="${PostDto.writer}" th:value="${PostDto.writer}">작성자 위치</td>
             </tr>
+            <tr th:if="${!#lists.isEmpty(PostDto.imgFileDtoList)}">
                 <td>이미지</td>
                 <td><img th:src="${PostDto.imgFileDtoList[0].imgUrl}"></td>
+            </tr>
             <tr>
                 <td>내용</td>
                 <td colspan="2" style="height: 200px; text-align: left;"  th:text="${PostDto.content}" th:value="${PostDto.content}" readonly></td>
@@ -45,6 +47,4 @@
     <th:block layout:fragment="footer" th:include="@{/fragments/footer}"></th:block>
 
 </body>
-
-
 </html>
