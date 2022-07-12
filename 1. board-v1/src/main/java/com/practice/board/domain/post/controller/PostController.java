@@ -1,5 +1,6 @@
 package com.practice.board.domain.post.controller;
 
+import com.practice.board.config.security.entity.SecurityUser;
 import com.practice.board.domain.post.dto.PostDto;
 import com.practice.board.domain.post.dto.SearchDto;
 import com.practice.board.domain.post.service.PostService;

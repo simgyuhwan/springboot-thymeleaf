@@ -28,6 +28,11 @@ public class ImgFileService {
         PostDto postDto = PostDto.of(posts);
 
         List<ImgFileDto> imgFileDtos = new ArrayList<>();
+
+        if (validateImgFileList(imgFileList)){
+            return postDto;
+        }
+        
         for (MultipartFile multipartFile : imgFileList) {
             imgFileDtos.add(saveImgFile(multipartFile, posts).toDto());
         }
@@ -37,6 +42,13 @@ public class ImgFileService {
 
     public List<ImgFile> getImgFile(Posts posts){
         return imgFileRepository.findByPosts(posts);
+    }
+
+    private boolean validateImgFileList(List<MultipartFile> imgFileList) {
+        if(imgFileList.size() == 1){
+            return true;
+        }
+        return false;
     }
 
     private ImgFile saveImgFile(MultipartFile multipartFile, Posts posts) throws IOException {
@@ -53,8 +65,4 @@ public class ImgFileService {
                 .posts(posts)
                 .build());
     }
-
-
-
-
 }
