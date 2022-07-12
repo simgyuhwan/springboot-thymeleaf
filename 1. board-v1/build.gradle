@@ -46,6 +46,10 @@ dependencies {
 	testCompileOnly('org.springframework.security:spring-security-test')
 
 	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+
+	//redis
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	implementation 'org.springframework.session:spring-session-data-redis'
 }
 
 tasks.named('test') {
