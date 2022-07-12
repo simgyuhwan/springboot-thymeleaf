@@ -1,6 +1,7 @@
 package com.practice.board.domain.post.controller;
 
 import com.practice.board.config.security.entity.SecurityUser;
+import com.practice.board.domain.post.dto.CommentResponseDto;
 import com.practice.board.domain.post.dto.PostDto;
 import com.practice.board.domain.post.dto.SearchDto;
 import com.practice.board.domain.post.service.PostService;
@@ -61,7 +62,14 @@ public class PostController {
 
     @GetMapping("/post/detail/{postId}")
     public String read(@PathVariable Long postId, Model model){
-        model.addAttribute("PostDto", service.getPost(postId));
+        PostDto dto = service.getPost(postId);
+        List<CommentResponseDto> comments = dto.getComments();
+
+        if(comments != null && !comments.isEmpty()){
+            model.addAttribute("comments", comments);
+        }
+
+        model.addAttribute("PostDto", dto);
         return "board/detail";
     }
 

@@ -32,6 +32,8 @@ public class PostDto {
 
     private List<ImgFileDto> imgFileDtoList = new ArrayList<>();
 
+    private List<CommentResponseDto> comments;
+
     public PostDto(String title, String content, String writer) {
         this.title = title;
         this.content = content;
@@ -74,4 +76,8 @@ public class PostDto {
         return this;
     }
 
+    public PostDto setComments(List<CommentResponseDto> comments){
+        this.comments = comments;
+        return this;
+    }
 }
