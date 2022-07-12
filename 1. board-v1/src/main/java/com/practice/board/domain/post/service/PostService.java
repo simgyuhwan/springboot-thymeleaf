@@ -1,10 +1,13 @@
 package com.practice.board.domain.post.service;
 
+import com.practice.board.domain.post.dto.CommentResponseDto;
 import com.practice.board.domain.post.dto.ImgFileDto;
 import com.practice.board.domain.post.dto.PostDto;
 import com.practice.board.domain.post.dto.SearchDto;
+import com.practice.board.domain.post.entity.Comment;
 import com.practice.board.domain.post.entity.ImgFile;
 import com.practice.board.domain.post.entity.Posts;
+import com.practice.board.domain.post.repository.CommentRepository;
 import com.practice.board.domain.post.repository.PostRepository;
 import com.practice.board.domain.post.repository.PostSearchRepository;
 import com.practice.board.domain.post.repository.specification.PostSpecificationBuilder;
@@ -31,6 +34,7 @@ public class PostService {
     private final PostRepository repository;
     private final PostSearchRepository searchRepository;
     private final ImgFileService imgFileService;
+    private final CommentRepository commentRepository;
 
     public Long register(Posts posts) {
         return repository.save(posts).getId();
@@ -59,11 +63,18 @@ public class PostService {
     public PostDto getPost(Long postId) {
         Posts posts = repository.findById(postId)
                 .orElseThrow(EntityExistsException::new);
+
         List<ImgFileDto> imgFileDtos = imgFileService.getImgFile(posts).stream()
                 .map(ImgFileDto::new)
                 .collect(Collectors.toList());
 
-        return PostDto.of(posts).setImgFileDtoList(imgFileDtos);
+        List<CommentResponseDto> comments = commentRepository.findByPosts(posts)
+                .stream()
+                .map(CommentResponseDto::new)
+                .collect(Collectors.toList());
+
+        return PostDto.of(posts).setImgFileDtoList(imgFileDtos)
+                .setComments(comments);
     }
 
     public Posts updatePost(Long postId, PostDto postDto) {

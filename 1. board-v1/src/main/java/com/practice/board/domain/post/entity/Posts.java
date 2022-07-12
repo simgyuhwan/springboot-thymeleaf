@@ -2,9 +2,11 @@ package com.practice.board.domain.post.entity;
 
 import com.practice.board.domain.common.entity.BaseEntity;
 import com.practice.board.domain.post.dto.PostDto;
+import com.practice.board.domain.user.entity.User;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity @Getter
 @Table(name = "posts" )
@@ -24,6 +26,14 @@ public class Posts extends BaseEntity {
 
     @Column(name = "writer")
     private String writer;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @OneToMany(mappedBy = "posts", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @OrderBy("id ASC")
+    private List<Comment> comments;
 
     @Builder
     public Posts(String title, String content, String writer) {

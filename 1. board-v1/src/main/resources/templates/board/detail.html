@@ -42,6 +42,15 @@
                 <a th:href="@{/board}" class="btn">목록보기</a>
                 <a th:href="@{'/board/post/' +${PostDto.id}}" class="btn">수정하기</a>
             </div>
+            <div class="comment">
+                <ul>
+                    <li>
+                        <span>
+                            <span style="font-size: small" ></span>
+                        </span>
+                    </li>
+                </ul>
+            </div>
         </div>
     </th:block>
     <th:block layout:fragment="footer" th:include="@{/fragments/footer}"></th:block>
