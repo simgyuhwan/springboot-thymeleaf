@@ -26,13 +26,12 @@ public class ImgFileService {
 
     public PostDto Register(Posts posts, List<MultipartFile> imgFileList) throws IOException {
         PostDto postDto = PostDto.of(posts);
-
         List<ImgFileDto> imgFileDtos = new ArrayList<>();
 
         if (validateImgFileList(imgFileList)){
             return postDto;
         }
-        
+
         for (MultipartFile multipartFile : imgFileList) {
             imgFileDtos.add(saveImgFile(multipartFile, posts).toDto());
         }

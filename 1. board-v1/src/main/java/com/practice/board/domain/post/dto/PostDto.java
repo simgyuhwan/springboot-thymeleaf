@@ -4,6 +4,7 @@ import com.practice.board.domain.post.entity.Posts;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.parameters.P;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -23,8 +24,6 @@ public class PostDto {
     @NotBlank(message = "값을 입력해주세요")
     private String content;
 
-    @NotBlank(message = "값을 입력해주세요")
-    @Size(min = 1, max = 20)
     private String writer;
 
     private LocalDate createdDate;
@@ -36,6 +35,10 @@ public class PostDto {
     public PostDto(String title, String content, String writer) {
         this.title = title;
         this.content = content;
+        this.writer = writer;
+    }
+
+    public PostDto(String writer){
         this.writer = writer;
     }
 
@@ -65,4 +68,10 @@ public class PostDto {
         this.imgFileDtoList = imgFileDtoList;
         return this;
     }
+
+    public PostDto setWriter(String writer){
+        this.writer = writer;
+        return this;
+    }
+
 }

@@ -47,15 +47,15 @@ public class PostController {
     }
 
     @GetMapping("/post")
-    public String write(Model model){
-        model.addAttribute("PostDto",new PostDto());
+    public String write(Model model, @AuthenticationPrincipal SecurityUser user){
+        model.addAttribute("PostDto",new PostDto(user.getUserId()));
          return "board/write";
     }
 
     @PostMapping("/post")
     public String write(Model model, @Validated PostDto postDto,
-                        @RequestPart("imgFile") List<MultipartFile> imgFileList) throws IOException {
-        model.addAttribute("PostDto", service.addPosts(postDto, imgFileList));
+                        @RequestPart("imgFile") List<MultipartFile> imgFileList, @AuthenticationPrincipal SecurityUser user) throws IOException {
+        model.addAttribute("PostDto", service.addPosts(postDto.setWriter(user.getUserId()), imgFileList));
         return "redirect:/board";
     }
 
