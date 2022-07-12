@@ -9,7 +9,6 @@ import org.springframework.web.filter.HiddenHttpMethodFilter;
 
 @SpringBootApplication
 @EnableJpaAuditing
-@EnableRedisHttpSession
 public class BoardApplication {
 
 	public static void main(String[] args) {
