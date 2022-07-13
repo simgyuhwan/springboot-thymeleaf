@@ -92,7 +92,25 @@
             </tbody>
         </table>
                 <br/>
-                <div class="comment">
+                <div class="card">
+                    <div class="card-header bi bi-chat-dots">
+                        <ui class="list-group-flush" th:each="comment : ${comments}">
+                            <li class="list-group-item">
+                                <span>
+                                    <span style="font-size: small" th:text="${comment.username + '님'}">username</span>
+                                    <span style="font-size: xx-small" th:text="${comment.createdDate}"></span>
+                                    <button id="updateComment" class="btn btn-default">수정</button>
+                                    <button id="deleteComment" class="btn btn-default">삭제</button>
+                                </span>
+                                <div>
+                                    <span th:text="${comment.comment}">내용</span>
+                                </div>
+                            </li>
+                        </ui>
+                    </div>
+                </div>
+
+                <div class="card">
                     <div class="card" >Write a Comment</div>
                     <form >
                         <input type="hidden" id="postId" th:value="${PostDto.id}">
