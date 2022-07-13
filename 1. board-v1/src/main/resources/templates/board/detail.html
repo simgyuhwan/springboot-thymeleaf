@@ -2,12 +2,66 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{layout/default_layout}">
 
 <th:block layout:frament="head" th:include="@{/fragments/head}"></th:block>
 
 <body>
     <th:block layout:fragment="header" th:include="@{/fragments/header}"></th:block>
+    <th:block layout:fragment="script">
+        <script th:inline="javascript">
+
+            $(document).ready(function(){
+                // 댓글 저장
+                $('#btn-comment-save').on("click", function(e){
+                    e.preventDefault();
+                    commentSave();
+                });
+
+                // 댓글 로그인 요구
+                $('#needAuthenticated').on("click", function(e){
+                    e.preventDefault();
+                    alert("댓글 작성은 로그인이 필요합니다.");
+                })
+            })
+
+            // 댓글 등록
+            function commentSave(){
+                let postId = $("#postId").val();
+                let comment = $("#comment").val();
+                let data = {
+                    "comment" : comment
+                }
+                let dto = JSON.stringify(data);
+
+                const commentUrl = "/api/posts/" + postId + "/comments";
+                console.log("게시물: " + postId + " 댓글: " + comment);
+
+                if(!comment || comment.trim() === ""){
+                    alert("댓글을 입력해주세요.");
+                    return false;
+                }else{
+                    $.ajax({
+                        type: "post",
+                        url: commentUrl,
+                        contentType: "application/json; charset=utf-8",
+                        data: dto,
+                        success: function(){
+                            console.log("comment save success");
+                            window.location.reload();
+                        },
+                        error: function(error){
+                            console.log("comment save failure");
+                            console.log(JSON.stringify(error));
+                        }
+                    })
+                }
+            }
+        </script>
+
+    </th:block>
+
     <th:block layout:fragment="content" class="content">
 
         <div class="detail-total">
@@ -37,21 +91,30 @@
             </tr>
             </tbody>
         </table>
+                <br/>
+                <div class="comment">
+                    <div class="card" >Write a Comment</div>
+                    <form >
+                        <input type="hidden" id="postId" th:value="${PostDto.id}">
+                        <div class="card-body">
+                            <textarea id="comment" rows="4" placeholder="댓글을 입력하세요"></textarea>
+                        </div>
+                        <div sec:authorize="isAuthenticated()">
+                            <button class="btn btn-default" type="button" id="btn-comment-save">등록</button>
+                        </div>
+
+                        <div sec:authorize="!isAuthenticated()">
+                            <button class="btn btn-success" type="button" id="needAuthenticated">등록</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
             </div>
             <div class="detail-button">
                 <a th:href="@{/board}" class="btn">목록보기</a>
                 <a th:href="@{'/board/post/' +${PostDto.id}}" class="btn">수정하기</a>
             </div>
-            <div class="comment">
-                <ul>
-                    <li>
-                        <span>
-                            <span style="font-size: small" ></span>
-                        </span>
-                    </li>
-                </ul>
-            </div>
-        </div>
+
     </th:block>
     <th:block layout:fragment="footer" th:include="@{/fragments/footer}"></th:block>
 

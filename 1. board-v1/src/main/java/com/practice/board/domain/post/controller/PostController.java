@@ -1,6 +1,7 @@
 package com.practice.board.domain.post.controller;
 
 import com.practice.board.config.security.entity.SecurityUser;
+import com.practice.board.domain.post.dto.CommentRequestDto;
 import com.practice.board.domain.post.dto.CommentResponseDto;
 import com.practice.board.domain.post.dto.PostDto;
 import com.practice.board.domain.post.dto.SearchDto;
@@ -68,7 +69,7 @@ public class PostController {
         if(comments != null && !comments.isEmpty()){
             model.addAttribute("comments", comments);
         }
-
+        model.addAttribute("CommentRequestDto", new CommentRequestDto());
         model.addAttribute("PostDto", dto);
         return "board/detail";
     }
