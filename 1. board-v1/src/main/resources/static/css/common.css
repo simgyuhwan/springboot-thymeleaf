@@ -256,3 +256,10 @@ button.btn{
     padding: 12px;
 }
 
+.total_comment{
+    text-align: center;
+}
+
+.read_comment{
+    display: inline-block;
+}
