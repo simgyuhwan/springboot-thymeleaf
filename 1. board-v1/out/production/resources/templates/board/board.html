@@ -66,7 +66,7 @@
             <div class="table-boss">
 
             <table class="board_table" bordercolor="green"  height="200">
-                <thead>
+                <thead style="text-align-last: center;">
                     <th scope="col">No</th>
                     <th scope="col">title</th>
                     <th scope="col">writer</th>
@@ -83,7 +83,7 @@
                         </td>
                         <td th:text="${postDto.writer}" >작성자</td>
                         <td th:text="${postDto.createdDate}"></td>
-                        <td>
+                        <td class="delete-btn-box" style="width: 89px;">
                                 <input type="hidden" name="_method" value="delete"/>
                                 <input type="button" th:onclick="'javascript:ConfirmDelete(' + ${postDto.id}+')'" class="delete-btn" value="삭제" >
                         </td>
