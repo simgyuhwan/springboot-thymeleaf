@@ -1,5 +1,8 @@
 package com.practice.board.domain.post.controller;
 
+import com.practice.board.config.security.entity.SecurityUser;
+import com.practice.board.domain.post.dto.CommentRequestDto;
+import com.practice.board.domain.post.dto.CommentResponseDto;
 import com.practice.board.domain.post.dto.PostDto;
 import com.practice.board.domain.post.dto.SearchDto;
 import com.practice.board.domain.post.service.PostService;
@@ -9,11 +12,19 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -38,26 +49,34 @@ public class PostController {
     }
 
     @GetMapping("/post")
-    public String write(Model model){
-        model.addAttribute("PostDto",new PostDto());
-        return "board/write";
+    public String write(Model model, @AuthenticationPrincipal SecurityUser user){
+        model.addAttribute("PostDto",new PostDto(user.getUserId()));
+         return "board/write";
     }
 
     @PostMapping("/post")
-    public String write(Model model, @Validated PostDto postDto){
-        model.addAttribute("PostDto", PostDto.of(service.addPosts(postDto)));
+    public String write(Model model, @Validated PostDto postDto,
+                        @RequestPart("imgFile") List<MultipartFile> imgFileList, @AuthenticationPrincipal SecurityUser user) throws IOException {
+        model.addAttribute("PostDto", service.addPosts(postDto.setWriter(user.getUserId()), imgFileList));
         return "redirect:/board";
     }
 
     @GetMapping("/post/detail/{postId}")
     public String read(@PathVariable Long postId, Model model){
-        model.addAttribute("PostDto", PostDto.of(service.getPost(postId)));
+        PostDto dto = service.getPost(postId);
+        List<CommentResponseDto> comments = dto.getComments();
+
+        if(comments != null && !comments.isEmpty()){
+            model.addAttribute("comments", comments);
+        }
+        model.addAttribute("CommentRequestDto", new CommentRequestDto());
+        model.addAttribute("PostDto", dto);
         return "board/detail";
     }
 
     @GetMapping("/post/{postId}")
     public String update(@PathVariable Long postId, Model model){
-        model.addAttribute("PostDto", PostDto.of(service.getPost(postId)));
+        model.addAttribute("PostDto", service.getPost(postId));
         return "board/update";
     }
 

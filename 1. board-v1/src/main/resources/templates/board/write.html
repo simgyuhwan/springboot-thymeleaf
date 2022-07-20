@@ -12,15 +12,21 @@
     <div class="write_total">
     <h2>글쓰기</h2>
 
-    <form th:action="@{/board/post}" method="post" th:object="${PostDto}">
+    <form th:action="@{/board/post}" method="post" th:object="${PostDto}" enctype="multipart/form-data">
         <div>
             <label for="title">제목 :</label>
             <div class="write_input"><input type="text" th:field="*{title}" size="80" id="title" placeholder="제목" autofocus required></div>
         </div><br>
-
+<!--        <input type="text" th:field="*{writer}" size="80" id="writer" placeholder="작성자" required>-->
         <div>
             <label for="writer">작성자 :</label>
-            <div class="write_input"><input type="text" th:field="*{writer}" size="80" id="writer" placeholder="작성자" required></div>
+            <b th:text="*{writer}" id="writer" th:value="*{writer}" th:name="*{writer}" disabled />
+        </div><br>
+        <div>
+            <label for="imgFileInput">이미지 업로드 : </label>
+            <div th:if="${#lists.isEmpty(PostDto.imgFileDtoList)}" class="img_input">
+                    <input type="file" name="imgFile" id="imgFileInput" accept="image/*"  multiple/>
+            </div>
         </div><br>
         <div>
             <label for="content">내용 :</label>

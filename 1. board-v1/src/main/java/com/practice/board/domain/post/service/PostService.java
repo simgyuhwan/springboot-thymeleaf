@@ -1,8 +1,13 @@
 package com.practice.board.domain.post.service;
 
+import com.practice.board.domain.post.dto.CommentResponseDto;
+import com.practice.board.domain.post.dto.ImgFileDto;
 import com.practice.board.domain.post.dto.PostDto;
 import com.practice.board.domain.post.dto.SearchDto;
+import com.practice.board.domain.post.entity.Comment;
+import com.practice.board.domain.post.entity.ImgFile;
 import com.practice.board.domain.post.entity.Posts;
+import com.practice.board.domain.post.repository.CommentRepository;
 import com.practice.board.domain.post.repository.PostRepository;
 import com.practice.board.domain.post.repository.PostSearchRepository;
 import com.practice.board.domain.post.repository.specification.PostSpecificationBuilder;
@@ -14,8 +19,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityExistsException;
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,14 +33,21 @@ public class PostService {
 
     private final PostRepository repository;
     private final PostSearchRepository searchRepository;
+    private final ImgFileService imgFileService;
+    private final CommentRepository commentRepository;
 
     public Long register(Posts posts) {
         return repository.save(posts).getId();
     }
 
     public Posts addPosts(PostDto postDto) {
+        return repository.save(Posts.of(postDto));
+    }
+
+    public PostDto addPosts(PostDto postDto, List<MultipartFile> imgFileList) throws IOException {
         Posts posts = Posts.of(postDto);
-        return repository.save(posts);
+        repository.save(posts);
+        return imgFileService.Register(posts, imgFileList);
     }
 
     @Transactional(readOnly = true)
@@ -46,9 +60,21 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public Posts getPost(Long postId) {
-        return repository.findById(postId)
+    public PostDto getPost(Long postId) {
+        Posts posts = repository.findById(postId)
                 .orElseThrow(EntityExistsException::new);
+
+        List<ImgFileDto> imgFileDtos = imgFileService.getImgFile(posts).stream()
+                .map(ImgFileDto::new)
+                .collect(Collectors.toList());
+
+        List<CommentResponseDto> comments = commentRepository.findByPosts(posts)
+                .stream()
+                .map(CommentResponseDto::new)
+                .collect(Collectors.toList());
+
+        return PostDto.of(posts).setImgFileDtoList(imgFileDtos)
+                .setComments(comments);
     }
 
     public Posts updatePost(Long postId, PostDto postDto) {
@@ -60,6 +86,7 @@ public class PostService {
     public void deletePost(Long postId) {
         repository.deleteById(postId);
     }
+
 
 
     // Page V1

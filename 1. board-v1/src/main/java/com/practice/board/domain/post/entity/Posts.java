@@ -2,12 +2,14 @@ package com.practice.board.domain.post.entity;
 
 import com.practice.board.domain.common.entity.BaseEntity;
 import com.practice.board.domain.post.dto.PostDto;
+import com.practice.board.domain.user.entity.User;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
-@Entity
-@Getter
+@Entity @Getter
+@Table(name = "posts" )
 @NoArgsConstructor
 @AllArgsConstructor
 public class Posts extends BaseEntity {
@@ -16,12 +18,22 @@ public class Posts extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "title")
     private String title;
 
-    @Lob
+    @Lob @Column(name= "content")
     private String content;
 
+    @Column(name = "writer")
     private String writer;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @OneToMany(mappedBy = "posts", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @OrderBy("id ASC")
+    private List<Comment> comments;
 
     @Builder
     public Posts(String title, String content, String writer) {

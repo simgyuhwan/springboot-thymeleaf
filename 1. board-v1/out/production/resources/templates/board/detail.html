@@ -2,47 +2,141 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{layout/default_layout}">
 
 <th:block layout:frament="head" th:include="@{/fragments/head}"></th:block>
 
 <body>
     <th:block layout:fragment="header" th:include="@{/fragments/header}"></th:block>
+    <th:block layout:fragment="script">
+        <script th:inline="javascript">
+
+            $(document).ready(function(){
+                // 댓글 저장
+                $('#btn-comment-save').on("click", function(e){
+                    e.preventDefault();
+                    commentSave();
+                });
+
+                // 댓글 로그인 요구
+                $('#needAuthenticated').on("click", function(e){
+                    e.preventDefault();
+                    alert("댓글 작성은 로그인이 필요합니다.");
+                })
+            })
+
+            // 댓글 등록
+            function commentSave(){
+                let postId = $("#postId").val();
+                let comment = $("#comment").val();
+                let data = {
+                    "comment" : comment
+                }
+                let dto = JSON.stringify(data);
+
+                const commentUrl = "/api/posts/" + postId + "/comments";
+                console.log("게시물: " + postId + " 댓글: " + comment);
+
+                if(!comment || comment.trim() === ""){
+                    alert("댓글을 입력해주세요.");
+                    return false;
+                }else{
+                    $.ajax({
+                        type: "post",
+                        url: commentUrl,
+                        contentType: "application/json; charset=utf-8",
+                        data: dto,
+                        success: function(){
+                            console.log("comment save success");
+                            window.location.reload();
+                        },
+                        error: function(error){
+                            console.log("comment save failure");
+                            console.log(JSON.stringify(error));
+                        }
+                    })
+                }
+            }
+        </script>
+
+    </th:block>
+
     <th:block layout:fragment="content" class="content">
 
         <div class="detail-total">
             <div class="detail-table">
-        <table class="tableMan" style="text-align: center; border: 1px solid #dddddd">
-            <thead>
+            <table class="tableMan" style="text-align: center; border: 1px solid #dddddd">
+                <thead>
+                    <tr>
+                        <th colspan="2" style="background-color: #eeeeee; text-align: center;">게시판 글 보기</th>
+                    </tr>
+                </thead>
+                <tbody>
                 <tr>
-                    <th colspan="2" style="background-color: #eeeeee; text-align: center;">게시판 글 보기</th>
+                    <td style="width: 20%;">글 제목</td>
+                    <td th:text="${PostDto.title}" th:value="${PostDto.title}">제목 위치</td>
                 </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td style="width: 20%;">글 제목</td>
-                <td th:text="${PostDto.title}" th:value="${PostDto.title}">제목 위치</td>
-            </tr>
-            <tr>
-                <td>작성자</td>
-                <td th:text="${PostDto.writer}" th:value="${PostDto.writer}">작성자 위치</td>
-            </tr>
-            <tr>
-                <td>내용</td>
-                <td colspan="2" style="height: 200px; text-align: left;"  th:text="${PostDto.content}" th:value="${PostDto.content}" readonly></td>
-            </tr>
-            </tbody>
-        </table>
+                <tr>
+                    <td>작성자</td>
+                    <td th:text="${PostDto.writer}" th:value="${PostDto.writer}">작성자 위치</td>
+                </tr>
+                <tr th:if="${!#lists.isEmpty(PostDto.imgFileDtoList)}">
+                    <td>이미지</td>
+                    <td><img th:src="${PostDto.imgFileDtoList[0].imgUrl}"></td>
+                </tr>
+                <tr>
+                    <td>내용</td>
+                    <td colspan="2" style="height: 200px; text-align: left;"  th:text="${PostDto.content}" th:value="${PostDto.content}" readonly></td>
+                </tr>
+                </tbody>
+            </table>
+                    <br/>
+                <div class="total_comment">
+                    <div class="card">
+                        <div class="read_comment">
+                            <ui class="list-group-flush" th:each="comment : ${comments}">
+                                <li class="list-group-item">
+                                    <span>
+                                        <span style="font-size: small" th:text="${comment.username + '님'}">username</span>
+                                        <span style="font-size: xx-small" th:text="${comment.createdDate}"></span>
+                                        <button id="updateComment" class="btn btn-default">수정</button>
+                                        <button id="deleteComment" class="btn btn-default">삭제</button>
+                                    </span>
+                                    <div>
+                                        <span th:text="${comment.comment}">내용</span>
+                                    </div>
+                                </li>
+                            </ui>
+                        </div>
+                    </div>
+                        <br/>
+                    <div class="card">
+                        <div class="card" >Write a Comment</div>
+                        <form >
+                            <input type="hidden" id="postId" th:value="${PostDto.id}">
+                            <div class="card-body">
+                                <textarea id="comment" rows="4" placeholder="댓글을 입력하세요"></textarea>
+                            </div>
+                            <div sec:authorize="isAuthenticated()">
+                                <button class="btn btn-default" type="button" id="btn-comment-save">등록</button>
+                            </div>
+
+                            <div sec:authorize="!isAuthenticated()">
+                                <button class="btn btn-success" type="button" id="needAuthenticated">등록</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="detail-button">
+                    <a th:href="@{/board}" class="btn">목록보기</a>
+                    <a th:href="@{'/board/post/' +${PostDto.id}}" class="btn">수정하기</a>
+                </div>
             </div>
-            <div class="detail-button">
-                <a th:href="@{/board}" class="btn">목록보기</a>
-                <a th:href="@{'/board/post/' +${PostDto.id}}" class="btn">수정하기</a>
-            </div>
+
         </div>
     </th:block>
     <th:block layout:fragment="footer" th:include="@{/fragments/footer}"></th:block>
 
 </body>
-
-
 </html>

@@ -1,0 +1,22 @@
+{
+  "groups": [
+    {
+      "name": "upload",
+      "type": "com.practice.board.domain.common.prop.FileProperties",
+      "sourceType": "com.practice.board.domain.common.prop.FileProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "upload.img-url",
+      "type": "java.lang.String",
+      "sourceType": "com.practice.board.domain.common.prop.FileProperties"
+    },
+    {
+      "name": "upload.path",
+      "type": "java.lang.String",
+      "sourceType": "com.practice.board.domain.common.prop.FileProperties"
+    }
+  ],
+  "hints": []
+}
