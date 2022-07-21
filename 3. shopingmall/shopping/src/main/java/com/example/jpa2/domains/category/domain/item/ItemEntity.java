@@ -17,7 +17,7 @@ import java.util.List;
 public class ItemEntity extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long itemId;
     private String name;
     private int price;
     private int stockQuantity;
